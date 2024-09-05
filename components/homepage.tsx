@@ -63,8 +63,9 @@ const Homepage = () => {
         .highlight-button:hover {
           box-shadow: inset 0 0 0 2px transparent, 0 0 10px 2px rgba(255, 255, 255, 1);
         }
-        .camarin-font {
+        .highlight-text {
           font-family: 'Varela Round', sans-serif;
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 15px rgba(255, 255, 255, 0.2);
         }
       `}</style>
       <section className="h-screen flex flex-col justify-center items-center bg-black text-white snap-start relative">
@@ -79,7 +80,7 @@ const Homepage = () => {
             <circle cx={`${scrollPosition * 1500}`} cy="150" r="10" fill="white" />
           </svg>
         </div>
-        <h1 className="text-6xl font-bold camarin-font">CAMARIN</h1>
+        <h1 className="text-6xl font-bold highlight-text">CAMARIN</h1>
         <p className="text-xl mt-4 animated-text">Powered by AI</p>
       </section>
       <section className="h-screen flex flex-col justify-center items-center bg-black text-white snap-start relative">
