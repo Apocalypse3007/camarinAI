@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react"
 const Homepage = () => {
   const [scrollPosition, setScrollPosition] = useState(0)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const pathRef = useRef<SVGPathElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +23,15 @@ const Homepage = () => {
       }
     }
   }, [])
+
+  const getCirclePosition = () => {
+    if (!pathRef.current) return { cx: 0, cy: 0 }
+    const pathLength = pathRef.current.getTotalLength()
+    const point = pathRef.current.getPointAtLength(scrollPosition * pathLength)
+    return { cx: point.x, cy: point.y }
+  }
+
+  const { cx, cy } = getCirclePosition()
 
   return (
     <div ref={scrollContainerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory">
@@ -65,19 +75,20 @@ const Homepage = () => {
         }
         .highlight-text {
           font-family: 'Varela Round', sans-serif;
-          text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 15px rgba(255, 255, 255, 0.2);
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 10px rgba(255, 255, 255, 0.4), 0 0 15px rgba(255, 255, 255, 0.2);
         }
       `}</style>
       <section className="h-screen flex flex-col justify-center items-center bg-black text-white snap-start relative">
         <div className="absolute top-0 left-0 w-full h-full">
           <svg width="100%" height="100%">
             <path
+              ref={pathRef}
               d="M0,150 C150,50 350,250 500,150 C650,50 850,250 1000,150 C1150,50 1350,250 1500,150"
               stroke="white"
               strokeWidth="2"
               fill="none"
             />
-            <circle cx={`${scrollPosition * 1500}`} cy="150" r="10" fill="white" />
+            <circle cx={cx} cy={cy} r="10" fill="white" />
           </svg>
         </div>
         <h1 className="text-6xl font-bold highlight-text">CAMARIN</h1>
@@ -87,12 +98,13 @@ const Homepage = () => {
         <div className="absolute top-0 left-0 w-full h-full">
           <svg width="100%" height="100%">
             <path
+              ref={pathRef}
               d="M0,150 C150,50 350,250 500,150 C650,50 850,250 1000,150 C1150,50 1350,250 1500,150"
               stroke="white"
               strokeWidth="2"
               fill="none"
             />
-            <circle cx={`${scrollPosition * 1500}`} cy="150" r="10" fill="white" />
+            <circle cx={cx} cy={cy} r="10" fill="white" />
           </svg>
         </div>
         <div className="text-center max-w-xl py-4">
