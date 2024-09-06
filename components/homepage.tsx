@@ -36,7 +36,7 @@ const Homepage = () => {
   return (
     <div ref={scrollContainerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory">
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+        @import url('https://db.onlinewebfonts.com/c/d056bcf9dfd6ac922b71535de69e8827?family=Posterama+2001+W04+Thin');
         @keyframes textFlow {
           0% {
             color: transparent;
@@ -74,7 +74,7 @@ const Homepage = () => {
           box-shadow: inset 0 0 0 2px transparent, 0 0 10px 2px rgba(255, 255, 255, 1);
         }
         .highlight-text {
-          font-family: 'Varela Round', sans-serif;
+          font-family: 'Posterama 2001 W04 Thin', sans-serif;
           text-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 10px rgba(255, 255, 255, 0.4), 0 0 15px rgba(255, 255, 255, 0.2);
         }
       `}</style>

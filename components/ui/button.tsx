@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
   size = 'medium'
 }) => {
-  const baseStyles = 'px-4 py-2 rounded focus:outline-none focus:ring';
+  const baseStyles = 'px-4 py-2 rounded focus:outline-none focus:ring relative inline-block transition-shadow duration-300 ease-in-out';
   const variantStyles = {
     primary: 'bg-blue-500 text-white hover:bg-blue-600',
     secondary: 'bg-gray-500 text-white hover:bg-gray-600',
@@ -28,8 +28,9 @@ const Button: React.FC<ButtonProps> = ({
     medium: 'text-base',
     large: 'text-lg',
   };
+  const highlightStyles = 'shadow-highlight hover:shadow-highlight-hover';
 
-  const combinedStyles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
+  const combinedStyles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${highlightStyles} ${className}`;
 
   return (
     <button
