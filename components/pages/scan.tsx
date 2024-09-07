@@ -1,5 +1,5 @@
-import React from 'react'
-import Image from 'next/image'
+import React from 'react';
+import Image from 'next/image';
 
 export default function ScanPage() {
   return (
@@ -17,9 +17,9 @@ export default function ScanPage() {
               process is swift, patented, and producing results within a matter of seconds.
             </p>
           </div>
-          <div className="md:w-1/2 relative">
+          <div className="md:w-1/2 relative ml-36"> 
             <Image
-              src="/placeholder.svg?height=400&width=300"
+              src="/scan.png" 
               alt="Scanning process"
               width={300}
               height={400}
@@ -30,5 +30,5 @@ export default function ScanPage() {
         </div>
       </div>
     </main>
-  )
+  );
 }

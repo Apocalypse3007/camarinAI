@@ -12,6 +12,11 @@ export default function SuggestPage() {
 
   return (
     <main className="h-full flex items-center justify-center bg-black text-white">
+      <style jsx>{`
+        .shine {
+          box-shadow: 0 0 20px rgba(0, 255, 0, 1);
+        }
+      `}</style>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gray-800 rounded-lg p-8 flex flex-col md:flex-row items-center min-h-[600px]">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
@@ -23,15 +28,15 @@ export default function SuggestPage() {
               Receive ideal size recommendations based on the AI-powered measurements through real-time notifications.
             </p>
           </div>
-          <div className="md:w-1/2 relative">
+          <div className="md:w-1/2 relative ml-40">
             <Image
-              src="/placeholder.svg?height=400&width=300"
+              src="/suggest.png"
               alt="Clothing item"
               width={300}
               height={400}
               className="rounded-lg"
             />
-            <div className="flex space-x-2 mt-4 ml-[-100px]">
+            <div className="flex space-x-2 mt-4 ml-28">
               {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
                 <span
                   key={size}
@@ -44,7 +49,7 @@ export default function SuggestPage() {
                   tabIndex={0}
                   role="button"
                   className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
-                    selectedSize === size ? 'bg-green-500' : 'bg-gray-700'
+                    selectedSize === size ? 'bg-green-500 shine' : 'bg-gray-700'
                   }`}
                 >
                   {size}
@@ -58,8 +63,8 @@ export default function SuggestPage() {
               </div>
             )}
             {selectedSize === 'M' && (
-              <div className="mt-4 text-green-400 text-sm">
-                <p>We recommend the size M for a perfect fit ✓</p>
+              <div className="mt-4 text-green-500">
+                <p>We recommend the size M for a perfect fit ✅</p>
               </div>
             )}
           </div>
