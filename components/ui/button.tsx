@@ -1,46 +1,18 @@
 import React from 'react';
+import Link from 'next/link';
 
-interface ButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-  className?: string;
-  type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "danger";
-  size?: "small" | "medium" | "large";
+interface DemoButtonProps {
+  readonly href: string;
+  readonly children: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  children,
-  onClick,
-  className = '',
-  type = 'button',
-  variant = 'primary',
-  size = 'medium'
-}) => {
-  const baseStyles = 'px-4 py-2 rounded focus:outline-none focus:ring relative inline-block transition-shadow duration-300 ease-in-out';
-  const variantStyles = {
-    primary: 'bg-blue-500 text-white hover:bg-blue-600',
-    secondary: 'bg-gray-500 text-white hover:bg-gray-600',
-    danger: 'bg-red-500 text-white hover:bg-red-600',
-  };
-  const sizeStyles = {
-    small: 'text-sm',
-    medium: 'text-base',
-    large: 'text-lg',
-  };
-  const highlightStyles = 'shadow-highlight hover:shadow-highlight-hover';
-
-  const combinedStyles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${highlightStyles} ${className}`;
-
+export default function button({ href, children }: DemoButtonProps) {
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      className={combinedStyles}
+    <Link
+      href={href}
+      className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-gray-800 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-gray-700 transition-all duration-200 shadow-lg hover:shadow-xl"
     >
-      {children}
-    </button>
+      {children} <span className="ml-2">&gt;</span>
+    </Link>
   );
-};
-
-export default Button;
+}

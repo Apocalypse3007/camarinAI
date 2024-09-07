@@ -1,6 +1,6 @@
 import React from 'react';
 import Homepage from "@components/homepage";
-import Feature1 from "@components/feature1";
+import Feature1 from '@components/feature1';
 
 const Page = () => {
   return (

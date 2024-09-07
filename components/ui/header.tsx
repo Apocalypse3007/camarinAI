@@ -1,33 +1,33 @@
 import React from 'react';
 import Link from 'next/link';
-import Button from './button'; 
 
 export default function Header() {
   return (
-    <header className="bg-gray-900 text-white py-6 px-4 md:px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-16">
-          <div className="text-2xl font-bold highlight-text">CAMARIN</div>
+    <header className="bg-black text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-4">
+          <div className="text-2xl font-bold">CAMARIN</div>
           <nav className="hidden md:flex space-x-6">
-            <Link href="/about" className="hover:text-gray-300 highlight-text">About</Link>
-            <Link href="/features" className="hover:text-gray-300 highlight-text">Features</Link>
-            <Link href="/platform" className="hover:text-gray-300 highlight-text">Platform</Link>
+            <Link href="/about" className="text-white hover:text-gray-300">About</Link>
+            <Link href="/features" className="text-white hover:text-gray-300">Features</Link>
+            <Link href="/platform" className="text-white hover:text-gray-300">Platform</Link>
           </nav>
-          <Button variant="secondary" size="small">
-            Contact us
-          </Button>
+          <a href="/contact" className="button">
+            Contact us &gt;
+          </a>
         </div>
-        <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-block mb-4">
-            <span className="bg-green-500 rounded-full w-2 h-2 inline-block mr-2"></span>
-            <span className="text-green-500 text-sm highlight-text">Find the right fit</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 highlight-text">Precise Measurement</h1>
-          <p className="text-gray-400 text-sm md:text-base">
-            Provide customers with personalized, brand-agnostic sizing based on 
-            their measurements and garment type, eliminating the need for size charts.
-          </p>
+      </div>
+      
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+        <div className="inline-flex items-center justify-center mb-2">
+          <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+          <span className="text-green-400 text-sm">Find the right fit</span>
         </div>
+        <h1 className="text-3xl sm:text-4xl font-bold mb-2">Precise Measurement</h1>
+        <p className="text-gray-400 max-w-2xl mx-auto">
+          Provide customers with personalized, brand-agnostic sizing based on 
+          their measurements and garment type, eliminating the need for size charts.
+        </p>
       </div>
     </header>
   );
