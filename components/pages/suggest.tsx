@@ -16,7 +16,7 @@ export default function SuggestPage() {
   };
 
   return (
-    <main className="h-full flex items-center justify-center bg-black text-white">
+    <main className="h-full flex items-center justify-center text-white" style={{ backgroundColor: '#212121' }}>
       <style jsx>{`
         .shine {
           box-shadow: 0 0 20px rgba(0, 255, 0, 1);
@@ -48,22 +48,15 @@ export default function SuggestPage() {
           align-items: center;
           flex-direction: column;
         }
-        .background-image {
-          position: absolute;
-          right: -100px; /* Adjust as needed */
-          z-index: -1;
-          width: 200px;
-          height: 250px;
-        }
-        .size-bar {
-          margin-top: 20px;
-          display: flex;
-          justify-content: center;
-          gap: 10px;
+        .frosted-glass {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.18);
         }
       `}</style>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gray-800 rounded-lg p-8 flex flex-col md:flex-row items-center min-h-[600px]">
+        <div className="bg-gray-800 rounded-lg p-8 flex flex-col md:flex-row items-center min-h-[600px] frosted-glass">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
             <div className="text-gray-400 mb-2">Step 3</div>
             <h2 className="text-3xl font-bold mb-4">Suggest</h2>

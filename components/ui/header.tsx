@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className="bg-black text-white pt-4">
+    <header className="text-white pt-4" style={{ backgroundColor: '#212121' }}>
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
         <div className="flex justify-between items-center py-2">
           <div className="text-2xl font-bold">CAMARIN</div>

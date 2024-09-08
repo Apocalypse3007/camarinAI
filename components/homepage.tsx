@@ -1,37 +1,37 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 
 const Homepage = () => {
-  const [scrollPosition, setScrollPosition] = useState(0)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const pathRef = useRef<SVGPathElement>(null)
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!scrollContainerRef.current) return
-      const scrollTop = scrollContainerRef.current.scrollTop
-      const maxScrollTop = scrollContainerRef.current.scrollHeight - window.innerHeight
-      const scrollFraction = scrollTop / maxScrollTop
-      setScrollPosition(scrollFraction)
-    }
-    const scrollContainer = scrollContainerRef.current
+      if (!scrollContainerRef.current) return;
+      const scrollTop = scrollContainerRef.current.scrollTop;
+      const maxScrollTop = scrollContainerRef.current.scrollHeight - window.innerHeight;
+      const scrollFraction = scrollTop / maxScrollTop;
+      setScrollPosition(scrollFraction);
+    };
+    const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
-      scrollContainer.addEventListener("scroll", handleScroll)
+      scrollContainer.addEventListener("scroll", handleScroll);
       return () => {
-        scrollContainer.removeEventListener("scroll", handleScroll)
-      }
+        scrollContainer.removeEventListener("scroll", handleScroll);
+      };
     }
-  }, [])
+  }, []);
 
   const getCirclePosition = () => {
-    if (!pathRef.current) return { cx: 0, cy: 0 }
-    const pathLength = pathRef.current.getTotalLength()
-    const point = pathRef.current.getPointAtLength(scrollPosition * pathLength)
-    return { cx: point.x, cy: point.y }
-  }
+    if (!pathRef.current) return { cx: 0, cy: 0 };
+    const pathLength = pathRef.current.getTotalLength();
+    const point = pathRef.current.getPointAtLength(scrollPosition * pathLength);
+    return { cx: point.x, cy: point.y };
+  };
 
-  const { cx, cy } = getCirclePosition()
+  const { cx, cy } = getCirclePosition();
 
   return (
     <div ref={scrollContainerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory">
@@ -78,7 +78,7 @@ const Homepage = () => {
           text-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 10px rgba(255, 255, 255, 0.4), 0 0 15px rgba(255, 255, 255, 0.2);
         }
       `}</style>
-      <section className="h-screen flex flex-col justify-center items-center bg-black text-white snap-start relative">
+      <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative" style={{ backgroundColor: '#212121' }}>
         <div className="absolute top-0 left-0 w-full h-full">
           <svg width="100%" height="100%">
             <path
@@ -94,7 +94,7 @@ const Homepage = () => {
         <h1 className="text-6xl font-bold highlight-text">CAMARIN</h1>
         <p className="text-xl mt-4 animated-text">Powered by AI</p>
       </section>
-      <section className="h-screen flex flex-col justify-center items-center bg-black text-white snap-start relative">
+      <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative" style={{ backgroundColor: '#212121' }}>
         <div className="absolute top-0 left-0 w-full h-full">
           <svg width="100%" height="100%">
             <path
@@ -120,7 +120,7 @@ const Homepage = () => {
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
 export default Homepage;
