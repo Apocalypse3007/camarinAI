@@ -42,6 +42,25 @@ export default function SuggestPage() {
             transform: translateY(0);
           }
         }
+        .image-container {
+          position: relative;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+        }
+        .background-image {
+          position: absolute;
+          right: -100px; /* Adjust as needed */
+          z-index: -1;
+          width: 200px;
+          height: 250px;
+        }
+        .size-bar {
+          margin-top: 20px;
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+        }
       `}</style>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gray-800 rounded-lg p-8 flex flex-col md:flex-row items-center min-h-[600px]">
@@ -82,54 +101,68 @@ export default function SuggestPage() {
               </p>
             )}
           </div>
-          <div className="md:w-1/2 relative ml-40">
-            {activeSection === 'materialDetails' && (
-              <Image
-                src="/suggest2text.png"
-                alt="Additional background"
-                width={150}
-                height={200}
-                className="rounded-lg opacity-50 absolute top-0 left-0"
-              />
-            )}
-            <Image
-              src="/suggest.png"
-              alt="Clothing item"
-              width={300}
-              height={400}
-              className="rounded-lg relative"
-            />
-            <div className="flex space-x-2 mt-4 ml-28">
-              {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
-                <span
-                  key={size}
-                  onClick={() => handleSizeClick(size)}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter') {
-                      handleSizeClick(size);
-                    }
-                  }}
-                  tabIndex={0}
-                  role="button"
-                  className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
-                    selectedSize === size ? 'bg-green-500 shine' : 'bg-gray-700'
-                  }`}
-                >
-                  {size}
-                </span>
-              ))}
+          <div className="md:w-full flex justify-center relative ml-40 image-container">
+            {/* Image Container */}
+            <div className="flex">
+              {/* First Image - suggest.png */}
+              <div>
+                <Image
+                  src="/suggest.png"
+                  alt="Clothing item"
+                  width={300}
+                  height={400}
+                  className="rounded-lg"
+                />
+              </div>
+
+              {/* Second Image - suggest2text.png */}
+              {activeSection === 'materialDetails' && (
+                <div className="ml-4">
+                  <Image
+                    src="/suggest2text.png"
+                    alt="Additional background"
+                    width={200}
+                    height={250}
+                    className="background-image"
+                  />
+                </div>
+              )}
             </div>
-            {selectedSize === 'L' && (
-              <div className="mt-4 text-red-500">
-                <p>Sleeves might be long for you, loose around the chest ❌</p>
-                <p>We recommend you choose the size M instead for a perfect fit.</p>
+
+            {/* Size Bar */}
+            <div className="flex flex-col items-center mt-4 w-full">
+              <div className="size-bar flex justify-center space-x-2 mt-4">
+                {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
+                  <span
+                    key={size}
+                    onClick={() => handleSizeClick(size)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') {
+                        handleSizeClick(size);
+                      }
+                    }}
+                    tabIndex={0}
+                    role="button"
+                    className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
+                      selectedSize === size ? 'bg-green-500 shine' : 'bg-gray-700'
+                    }`}
+                  >
+                    {size}
+                  </span>
+                ))}
               </div>
-            )}
-            {selectedSize === 'M' && (
-              <div className="mt-4 text-green-500">
-                <p>We recommend the size M for a perfect fit ✅</p>
-              </div>
-            )}
+              {selectedSize === 'L' && (
+                <div className="mt-4 text-red-500">
+                  <p>Sleeves might be long for you, loose around the chest ❌</p>
+                  <p>We recommend you choose the size M instead for a perfect fit.</p>
+                </div>
+              )}
+              {selectedSize === 'M' && (
+                <div className="mt-4 text-green-500">
+                  <p>We recommend the size M for a perfect fit ✅</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
