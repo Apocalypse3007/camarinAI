@@ -17,44 +17,6 @@ export default function SuggestPage() {
 
   return (
     <main className="h-full flex items-center justify-center text-white" style={{ backgroundColor: '#212121' }}>
-      <style jsx>{`
-        .shine {
-          box-shadow: 0 0 20px rgba(0, 255, 0, 1);
-        }
-        .active-section {
-          color: #00ff00;
-          cursor: pointer;
-        }
-        .inactive-section {
-          color: #555555;
-          cursor: pointer;
-        }
-        .blend-in {
-          animation: blendIn 0.5s ease-in-out;
-        }
-        @keyframes blendIn {
-          0% {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .image-container {
-          position: relative;
-          display: flex;
-          align-items: center;
-          flex-direction: column;
-        }
-        .frosted-glass {
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-      `}</style>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gray-800 rounded-lg p-8 flex flex-col md:flex-row items-center min-h-[600px] frosted-glass">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
@@ -155,10 +117,54 @@ export default function SuggestPage() {
                   <p>We recommend the size M for a perfect fit ✅</p>
                 </div>
               )}
+              {selectedSize === 'S' && (
+                <div className="mt-4 text-red-500">
+                <p>Sleeves might be short for you, loose around the chest ❌</p>
+                <p>We recommend you choose the size M instead for a perfect fit.</p>
+              </div>
+              )}
             </div>
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .shine {
+          box-shadow: 0 0 20px rgba(0, 255, 0, 1);
+        }
+        .active-section {
+          color: #00ff00;
+          cursor: pointer;
+        }
+        .inactive-section {
+          color: #555555;
+          cursor: pointer;
+        }
+        .blend-in {
+          animation: blendIn 0.5s ease-in-out;
+        }
+        @keyframes blendIn {
+          0% {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .image-container {
+          position: relative;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+        }
+        .frosted-glass {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+      `}</style>
     </main>
   );
 }
