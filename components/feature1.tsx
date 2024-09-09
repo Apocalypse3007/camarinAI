@@ -9,6 +9,7 @@ import Header from './ui/header';
 export default function Feature1() {
   const [activePage, setActivePage] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const ballRef = useRef<HTMLDivElement>(null);
 
   const pages = [
     { component: ScanPage, title: "Scan" },
@@ -37,6 +38,27 @@ export default function Feature1() {
     };
   }, []);
 
+  useEffect(() => {
+    const updateBallPosition = () => {
+      if (!ballRef.current) return;
+      const ball = ballRef.current;
+      switch (activePage) {
+        case 0:
+          ball.style.transform = `translate(${window.innerWidth - 50}px, 50%)`;
+          break;
+        case 1:
+          ball.style.transform = `translate(${window.innerWidth - 50}px, ${window.innerHeight - 50}px)`;
+          break;
+        case 2:
+          ball.style.transform = `translate(50%, ${window.innerHeight - 50}px)`;
+          break;
+        default:
+          break;
+      }
+    };
+    updateBallPosition();
+  }, [activePage]);
+
   const handlePageChange = (index: number) => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
@@ -49,57 +71,25 @@ export default function Feature1() {
   return (
     <div className="h-screen flex flex-col text-white overflow-hidden parentDiv" style={{ backgroundColor: '#212121' }}>
       <Header />
-      <div ref={containerRef} className="flex-1 relative childDiv overflow-y-scroll snap-y snap-mandatory">
-        <div className="relative h-full">
-          {pages.map((Page, index) => (
-            <div
-              key={index}
-              className={`h-screen w-full snap-start transition-transform duration-500 ease-in-out ${index === activePage ? 'active' : ''}`}
-              style={{
-                zIndex: index <= activePage ? pages.length - index : 0, // Ensures stacking order
-                transform: index <= activePage ? `translateY(${index * 10}px) scale(${1 - index * 0.05})` : 'translateY(0)',
-                opacity: index === activePage ? 1 : 0.8,
-              }}
-            >
-              <Page.component />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Navigation buttons */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4 z-50">
-        {pages.map((_, index) => (
-          <button
-            key={index}
-            className={`w-3 h-3 rounded-full ${index === activePage ? "bg-white" : "bg-gray-500"}`}
-            onClick={() => handlePageChange(index)}
-            aria-label={`Go to ${pages[index].title} page`}
-          />
+      <div ref={containerRef} className="flex-1 overflow-y-scroll snap-y snap-mandatory">
+        {pages.map((page, index) => (
+          <div key={index} className="h-screen snap-start">
+            <page.component />
+          </div>
         ))}
       </div>
-      <style jsx>{`
-        .childDiv::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        .childDiv::-webkit-scrollbar-thumb {
-          background-color: rgba(255, 255, 255, 0.5);
-          border-radius: 4px;
-        }
-
-        .childDiv::-webkit-scrollbar-track {
-          background-color: rgba(33, 33, 33, 0.5);
-        }
-
-        .childDiv {
-          scroll-snap-type: y mandatory;
-        }
-
-        .snap-start {
-          scroll-snap-align: start;
-        }
-      `}</style>
+      <div ref={ballRef} className="absolute w-10 h-10 bg-white rounded-full shine-ball" style={{ transition: 'transform 0.5s ease' }}></div>
+      <div className="flex justify-center mt-4">
+        {pages.map((page, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageChange(index)}
+            className={`mx-2 px-4 py-2 rounded-full ${activePage === index ? 'bg-white text-black' : 'bg-gray-500'}`}
+          >
+            {page.title}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
