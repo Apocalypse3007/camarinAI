@@ -1,87 +1,111 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@components/ui/card';
-import Header from './ui/header';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import Image from 'next/image';
 
-const Model = ({ outfit }: { outfit: string }) => {
-  return (
-    <div className="w-full h-auto">
-      <img src={outfit} alt="Outfit" className="w-full h-auto" />
-    </div>
-  );
+const AvatarModel = ({ outfit }: { outfit: string }) => (
+  <mesh>
+    <boxGeometry args={[1, 2, 0.5]} />
+    <meshStandardMaterial color={outfit} />
+  </mesh>
+);
+
+type FeatureBoxProps = {
+  title: string;
+  description: string;
+  isActive: boolean;
+  onClick: () => void;
+  position: string;
+  gradient: string;
 };
 
-interface ButtonProps {
-  className?: string;
-  variant?: 'outline' | 'solid';
-  onClick?: () => void;
-  children: React.ReactNode;
-}
+const FeatureBox = ({ title, description, isActive, onClick, position, gradient }: FeatureBoxProps) => (
+  <div 
+    className={`absolute w-[45%] h-1/3 bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-lg p-4 cursor-pointer transition-all duration-300 ${position} ${isActive ? 'border-2 border-teal-500 scale-105' : 'opacity-50'}`}
+    onClick={onClick}
+    style={{ background: gradient, zIndex: 20 }}
+  >
+    <h3 className="text-2xl font-bold mb-2">{title}</h3>
+    <p className="text-sm text-gray-300">{description}</p>
+    {isActive && (
+      <div className="absolute bottom-4 right-4 bg-teal-500 text-white px-3 py-1 rounded-full text-xs">
+        Active
+      </div>
+    )}
+  </div>
+);
 
-const Button = ({ className, variant = 'solid', onClick, children }: ButtonProps) => {
-  const baseClasses = 'px-4 py-2 rounded';
-  const variantClasses = variant === 'outline' ? 'border border-white text-white' : 'bg-white text-black';
-  return (
-    <button className={`${baseClasses} ${variantClasses} ${className}`} onClick={onClick}>
-      {children}
-    </button>
-  );
-};
+const FitLabel = ({ text, color, position }: { text: string; color: string; position: string }) => (
+  <div className={`absolute ${position} ${color} text-white px-3 py-1 rounded-full text-sm z-30`}>
+    {text}
+  </div>
+);
 
-export default function Feature2() {
-  const [currentOutfit, setCurrentOutfit] = useState('default');
+export default function VirtualTryOn() {
+  const [activeFeature, setActiveFeature] = useState<number | null>(null);
+  const [outfit, setOutfit] = useState('white');
 
   const features = [
-    { title: 'Check Fitting with Each Size', description: 'Offer live and virtual try-ons with personalized avatars, allowing customers to visualize individual clothing items and accessories or curate unique outfits effortlessly.' },
-    { title: 'Real-Time Try-On', description: 'Visualize individual clothing items and accessories' },
-    { title: 'Create outfit combinations', description: 'Mix and match to create unique looks' },
-    { title: 'Personalized Recommendations', description: 'Get style suggestions based on preferences' }
+    { title: "Check Fitting with Each Size", description: "Enhance engagement with interactive try on", position: "top-0 left-0", gradient: "linear-gradient(135deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" },
+    { title: "Real-Time Try-On", description: "Visualize individual clothing items and accessories", position: "top-0 right-0", gradient: "linear-gradient(225deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" },
+    { title: "High-Fidelity Avatars", description: "Create personalized avatars for accurate representation", position: "bottom-0 left-0", gradient: "linear-gradient(45deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" },
+    { title: "Create outfit combinations", description: "Mix and match to create unique looks", position: "bottom-0 right-0", gradient: "linear-gradient(315deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" }
   ];
 
-    return (
-    <div className="min-h-screen" style={{ backgroundColor: '#212121', color: 'white' }}> 
-      <main className="relative h-screen flex flex-col items-center justify-center p-8">
-        <div className="text-center mb-16">
+  const handleFeatureClick = (index: number) => {
+    setActiveFeature(index === activeFeature ? null : index);
+    setOutfit([index]);
+  };
+
+  return (
+    <div className="min-h-screen w-full bg-[#212121] text-white">
+      <main className="relative h-screen w-full flex flex-col items-center justify-center p-8">
+        <div className="text-center mb-8">
+          <div className="inline-block px-2 py-1 bg-teal-500 bg-opacity-20 text-teal-300 text-sm rounded-full mb-2">
+            Your digital changing room
+          </div>
           <h2 className="text-4xl font-bold mb-4">Virtual Try-On</h2>
-          <p className="max-w-md mx-auto">
-            Experience the future of shopping with our virtual try-on feature. See how clothes fit and look on you before making a purchase.
+          <p className="max-w-2xl mx-auto text-gray-400">
+            Offer live and virtual try-ons with personalized avatars, allowing
+            customers to visualize individual clothing items and accessories or curate
+            unique outfits effortlessly.
           </p>
         </div>
-  
-        <div className="flex flex-col items-center justify-center mb-16">
-          <Model outfit={currentOutfit} />
-          <div className="absolute top-1/4 left-1/4 bg-green-500 text-white px-3 py-1 rounded-full text-sm">
-            Good fit around the chest
+
+        <div className="relative w-full h-[600px]">
+          <div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 15 }}>
+            <Image
+              src="/page3_image1.png" 
+              alt="Outfit"
+              width={300}
+              height={500}
+              className="object-contain"
+            />
           </div>
-          <div className="absolute bottom-1/4 left-1/4 bg-green-500 text-white px-3 py-1 rounded-full text-sm">
-            Good fit around the waist
-          </div>
-          <div className="absolute bottom-1/4 right-1/4 bg-red-500 text-white px-3 py-1 rounded-full text-sm">
-            Length is short
-          </div>
-        </div>
-  
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pl-20">
+
+          <Canvas className="absolute inset-0" style={{ zIndex: 10 }}>
+            <OrbitControls />
+            <ambientLight intensity={0.5} />
+            <AvatarModel outfit={outfit} />
+          </Canvas>
+
           {features.map((feature, index) => (
-            <Card 
-              key={index} 
-              className="w- h-72 bg-gray-800/80 border-gray-700 backdrop-blur-sm"
-            >
-              <CardHeader>
-                <CardTitle>{feature.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>{feature.description}</p>
-                <Button 
-                  variant="outline"
-                  onClick={() => setCurrentOutfit(feature.title.toLowerCase().replace(' ', '-'))}
-                >
-                  Try it
-                </Button>
-              </CardContent>
-            </Card>
+            <FeatureBox
+              key={index}
+              title={feature.title}
+              description={feature.description}
+              isActive={activeFeature === index}
+              onClick={() => handleFeatureClick(index)}
+              position={feature.position}
+              gradient={feature.gradient}
+            />
           ))}
+
+          <FitLabel text="Good fit around the chest" color="bg-green-500" position="top-1/4 left-1/4" />
+          <FitLabel text="Good fit around the waist" color="bg-green-500" position="bottom-1/3 left-1/4" />
+          <FitLabel text="Length is short" color="bg-red-500" position="bottom-1/4 right-1/4" />
         </div>
       </main>
     </div>
