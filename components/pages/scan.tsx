@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function ScanPage() {
   return (
-    <main className="h-full flex items-center justify-center text-white" style={{ backgroundColor: '#212121' }}>
+    <main className="h-full flex items-center justify-center text-white" style={{ backgroundColor: '#161616' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gray-800 rounded-lg p-8 flex flex-col md:flex-row items-center min-h-[600px] frosted-glass">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">

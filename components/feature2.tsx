@@ -52,10 +52,10 @@ export default function VirtualTryOn() {
   const [imageSrc, setImageSrc] = useState('/page3_image1.png');
 
   const features = [
-    { title: "Check Fitting with Each Size", description: "Enhance engagement with interactive try on", position: "top-0 left-0", gradient: "linear-gradient(135deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" },
+    { title: "Check Fitting with Each Size", description: "Offer live and virtual try-ons with personalized avatars, allowing customers to visualize individual clothing items and accessories or curate unique outfits effortlessly.", position: "top-0 left-0", gradient: "linear-gradient(135deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" },
     { title: "Real-Time Try-On", description: "Offer live and virtual try-ons with personalized avatars, allowing customers to visualize individual clothing items and accessories or curate unique outfits effortlessly.", position: "top-0 right-0", gradient: "linear-gradient(225deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" },
-    { title: "High-Fidelity Avatars", description: "Create personalized avatars for accurate representation", position: "bottom-0 left-0", gradient: "linear-gradient(45deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" },
-    { title: "Create outfit combinations", description: "Mix and match to create unique looks", position: "bottom-0 right-0", gradient: "linear-gradient(315deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" }
+    { title: "High-Fidelity Avatars", description: "Offer live and virtual try-ons with personalized avatars, allowing customers to visualize individual clothing items and accessories or curate unique outfits effortlessly.", position: "bottom-0 left-0", gradient: "linear-gradient(45deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" },
+    { title: "Create outfit combinations", description: "Offer live and virtual try-ons with personalized avatars, allowing customers to visualize individual clothing items and accessories or curate unique outfits effortlessly.", position: "bottom-0 right-0", gradient: "linear-gradient(315deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)" }
   ];
 
   const handleFeatureClick = (index: number) => {
@@ -75,7 +75,7 @@ export default function VirtualTryOn() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#212121] text-white">
+    <div className="min-h-screen w-full bg-[#161616] text-white">
       <main className="relative h-screen w-full flex flex-col items-center justify-center p-8">
         <div className="text-center mb-8">
           <div className="inline-block px-2 py-1 bg-teal-500 bg-opacity-20 text-teal-300 text-sm rounded-full mb-2">
@@ -135,7 +135,7 @@ export default function VirtualTryOn() {
                     src="/black_short.png"
                     alt="Black Short"
                     width={100}
-                    height={100}
+                    height={200}
                     className="cursor-pointer"
                     onClick={handleBlackShortClick}
                   />

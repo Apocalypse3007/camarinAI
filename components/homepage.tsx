@@ -1,27 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from 'react';
 
 const Homepage = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const pathRef1 = useRef<SVGPathElement>(null);
   const pathRef2 = useRef<SVGPathElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const scrollTop = scrollContainerRef.current.scrollTop;
+      const scrollHeight = scrollContainerRef.current.scrollHeight - scrollContainerRef.current.clientHeight;
+      const scrollFraction = scrollTop / scrollHeight;
+      setScrollPosition(scrollFraction);
+    }
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!scrollContainerRef.current) return;
-      const scrollTop = scrollContainerRef.current.scrollTop;
-      const maxScrollTop = scrollContainerRef.current.scrollHeight - window.innerHeight;
-      const scrollFraction = scrollTop / maxScrollTop;
-      setScrollPosition(scrollFraction);
-    };
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      scrollContainer.addEventListener("scroll", handleScroll);
-      return () => {
-        scrollContainer.removeEventListener("scroll", handleScroll);
-      };
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      return () => container.removeEventListener('scroll', handleScroll);
     }
   }, []);
 
@@ -39,6 +39,7 @@ const Homepage = () => {
     <div ref={scrollContainerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory">
       <style jsx>{`
         @import url('https://db.onlinewebfonts.com/c/d056bcf9dfd6ac922b71535de69e8827?family=Posterama+2001+W04+Thin');
+        
         @keyframes textFlow {
           0% {
             color: transparent;
@@ -64,7 +65,7 @@ const Homepage = () => {
           right: 0;
           bottom: -2px;
           height: 3px;
-          background: linear-gradient(to right, transparent, #39ff14 50%, transparent);
+          background: linear-gradient(to right, transparent, #64CAB9 50%, transparent);
         }
         .highlight-button {
           position: relative;
@@ -75,26 +76,20 @@ const Homepage = () => {
         .highlight-button:hover {
           box-shadow: inset 0 0 0 2px transparent, 0 0 10px 2px rgba(255, 255, 255, 1);
         }
-        .highlight-text {
+        .camarin {
           font-family: 'Posterama 2001 W04 Thin', sans-serif;
-          text-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 10px rgba(255, 255, 255, 0.4), 0 0 15px rgba(255, 255, 255, 0.2);
-        }
-        @keyframes ballShine {
-          0% {
-            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
-          }
-          50% {
-            box-shadow: 0 0 20px 4px rgba(255, 255, 255, 1);
-          }
-          100% {
-            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
-          }
         }
         .shine-ball {
-          animation: ballShine 2s infinite;
+          filter: drop-shadow(0 0 10px white);
+        }
+        .waveform {
+          filter: drop-shadow(0 0 10px white);
+        }
+        .gradient-background {
+          background: linear-gradient(to bottom, #161616, #000000);
         }
       `}</style>
-      <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative" style={{ backgroundColor: '#212121' }}>
+      <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative gradient-background">
         <div className="absolute top-0 left-0 w-full h-full">
           <svg width="100%" height="100%">
             <path
@@ -103,14 +98,15 @@ const Homepage = () => {
               stroke="white"
               strokeWidth="2"
               fill="none"
+              className="waveform"
             />
             <circle cx={cx1} cy={cy1} r="10" fill="white" className="shine-ball" />
           </svg>
         </div>
-        <h1 className="text-6xl font-bold highlight-text">CAMARIN</h1>
+        <h1 className="text-6xl font-bold highlight-text posterama-font">CAMARIN</h1>
         <p className="text-xl mt-4 animated-text">Powered by AI</p>
       </section>
-      <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative" style={{ backgroundColor: '#212121' }}>
+      <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative bg-neutral-900">
         <div className="absolute top-0 left-0 w-full h-full">
           <svg width="100%" height="100%">
             <path
@@ -119,6 +115,7 @@ const Homepage = () => {
               stroke="white"
               strokeWidth="2"
               fill="none"
+              className="waveform"
             />
             <circle cx={cx2} cy={cy2} r="10" fill="white" className="shine-ball" />
           </svg>
@@ -132,7 +129,7 @@ const Homepage = () => {
           <p className="text-lg mt-4 text-slate-500">
             All this, and more, with our cutting-edge SaaS library integrates seamlessly with your web-app.
           </p>
-          <button className="highlight-button mt-10 px-6 py-3 bg-slate-900 text-white rounded-full">Book a demo &gt; </button>
+          <button className="highlight-button mt-10 px-6 py-3 bg-gradient-to-r from-neutral-700 to-zinc-900 rounded-full">Book a demo &gt; </button>
         </div>
       </section>
     </div>

@@ -16,7 +16,7 @@ export default function SuggestPage() {
   };
 
   return (
-    <main className="h-full flex items-center justify-center text-white" style={{ backgroundColor: '#212121' }}>
+    <main className="h-full flex items-center justify-center text-white" style={{ backgroundColor: '#161616' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gray-800 rounded-lg p-8 flex flex-col md:flex-row items-center min-h-[600px] frosted-glass">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
@@ -85,45 +85,52 @@ export default function SuggestPage() {
             </div>
 
             {/* Size Bar */}
-            <div className="flex flex-col items-center mt-4 w-full">
-              <div className="size-bar flex justify-center space-x-2 mt-4">
-                {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
-                  <span
-                    key={size}
-                    onClick={() => handleSizeClick(size)}
-                    onKeyDown={(event) => {
-                      if (event.key === 'Enter') {
-                        handleSizeClick(size);
-                      }
-                    }}
-                    tabIndex={0}
-                    role="button"
-                    className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
-                      selectedSize === size ? 'bg-green-500 shine' : 'bg-gray-700'
-                    }`}
-                  >
-                    {size}
-                  </span>
-                ))}
-              </div>
-              {selectedSize === 'L' && (
-                <div className="mt-4 text-red-500">
-                  <p>Sleeves might be long for you, loose around the chest ❌</p>
-                  <p>We recommend you choose the size M instead for a perfect fit.</p>
+            {activeSection === 'materialDetails' && (
+              <div className="flex flex-col items-center mt-4 w-full">
+                <div className="size-bar flex justify-center space-x-2 mt-4">
+                  {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
+                    <span
+                      key={size}
+                      onClick={() => handleSizeClick(size)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter') {
+                          handleSizeClick(size);
+                        }
+                      }}
+                      tabIndex={0}
+                      role="button"
+                      className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
+                        selectedSize === size
+                        ? selectedSize === 'M'
+                          ? 'bg-green-500 shine'
+                          : 'bg-red-500 '
+                        : 'bg-gray-700'
+                    }
+                      }`}
+                    >
+                      {size}
+                    </span>
+                  ))}
                 </div>
-              )}
-              {selectedSize === 'M' && (
-                <div className="mt-4 text-green-500">
-                  <p>We recommend the size M for a perfect fit ✅</p>
-                </div>
-              )}
-              {selectedSize === 'S' && (
-                <div className="mt-4 text-red-500">
-                <p>Sleeves might be short for you, loose around the chest ❌</p>
-                <p>We recommend you choose the size M instead for a perfect fit.</p>
+                {selectedSize === 'L' && (
+                  <div className="mt-4 text-red-500">
+                    <p>Sleeves might be long for you, loose around the chest ❌</p>
+                    <p>We recommend you choose the size M instead for a perfect fit.</p>
+                  </div>
+                )}
+                {selectedSize === 'M' && (
+                  <div className="mt-4 text-green-500">
+                    <p>We recommend the size M for a perfect fit ✅</p>
+                  </div>
+                )}
+                {selectedSize === 'S' && (
+                  <div className="mt-4 text-red-500">
+                    <p>Sleeves might be short for you, loose around the chest ❌</p>
+                    <p>We recommend you choose the size M instead for a perfect fit.</p>
+                  </div>
+                )}
               </div>
-              )}
-            </div>
+            )}
           </div>
         </div>
       </div>

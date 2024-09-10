@@ -69,7 +69,7 @@ export default function Feature1() {
   };
 
   return (
-    <div className="h-screen flex flex-col text-white overflow-hidden parentDiv" style={{ backgroundColor: '#212121' }}>
+    <div className="h-screen flex flex-col text-white overflow-hidden parentDiv" style={{ backgroundColor: '#161616' }}>
       <Header />
       <div ref={containerRef} className="flex-1 overflow-y-scroll snap-y snap-mandatory">
         {pages.map((page, index) => (
