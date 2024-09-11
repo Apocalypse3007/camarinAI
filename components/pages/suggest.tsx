@@ -20,16 +20,18 @@ export default function SuggestPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gray-800 rounded-lg p-8 flex flex-col md:flex-row items-center min-h-[600px] frosted-glass">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-            <div className="text-gray-400 mb-2">Step 3</div>
-            <h2 className="text-3xl font-bold mb-4">Suggest</h2>
+            <div className="text-neutral-400 mb-2">Step 3</div>
+            <h2 className="text-4xl font-bold mb-4">Suggest</h2>
+            <p className="text-xl text-emerald-300 mt-2">Get real-time recommendations as you browse</p>
+            <br />
             <div
-              className={`mb-4 ${activeSection === 'sizeRecommendations' ? 'active-section' : 'inactive-section'}`}
+              className={"mb-4 text-white-900"  }
               onClick={() => handleSectionClick('sizeRecommendations')}
             >
               Size recommendations across brands
             </div>
             {activeSection === 'sizeRecommendations' && (
-              <p className="text-gray-400 mb-4 blend-in">
+              <p className="text-neutral-400 mb-4 blend-in">
                 Receive ideal size recommendations based on the AI-powered measurements through real-time notifications.
               </p>
             )}
@@ -40,7 +42,7 @@ export default function SuggestPage() {
               Material details and high definition renders
             </div>
             {activeSection === 'materialDetails' && (
-              <p className="text-gray-400 mb-4 blend-in">
+              <p className="text-neutral-400 mb-4 blend-in">
                 Get detailed information about material, quality, fit and view it in a high-definition 360 movable realistic render.
               </p>
             )}
@@ -51,7 +53,7 @@ export default function SuggestPage() {
               Related product assistance
             </div>
             {activeSection === 'relatedProducts' && (
-              <p className="text-gray-400 mb-4 blend-in">
+              <p className="text-neutral-400 mb-4 blend-in">
                 Find related products to build the perfect outfit within seconds using AI.
               </p>
             )}

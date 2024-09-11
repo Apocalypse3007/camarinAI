@@ -12,7 +12,7 @@ export default function Header() {
             <Link href="/features" className="text-white hover:text-gray-300">Features</Link>
             <Link href="/platform" className="text-white hover:text-gray-300">Platform</Link>
           </nav>
-          <button className="highlight-button mt-10 px-6 py-3 bg-gradient-to-r from-neutral-700 to-zinc-900 rounded-full">
+          <button className="highlight-button px-6 py-3 bg-gradient-to-r from-neutral-700 to-zinc-900 rounded-full">
             Contact us &gt;
           </button>
           

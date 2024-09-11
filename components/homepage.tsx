@@ -35,6 +35,7 @@ const Homepage = () => {
   const { cx: cx1, cy: cy1 } = getCirclePosition(pathRef1, false);
   const { cx: cx2, cy: cy2 } = getCirclePosition(pathRef2, true);
 
+
   return (
     <div ref={scrollContainerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory">
       <style jsx>{`
@@ -85,11 +86,9 @@ const Homepage = () => {
         .waveform {
           filter: drop-shadow(0 0 10px white);
         }
-        .gradient-background {
-          background: linear-gradient(to bottom, #161616, #000000);
-        }
+        
       `}</style>
-      <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative gradient-background">
+      <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative bg-neutral-900">
         <div className="absolute top-0 left-0 w-full h-full">
           <svg width="100%" height="100%">
             <path

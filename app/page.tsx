@@ -14,7 +14,7 @@ const Page = () => {
       </section>
       <section className="h-screen snap-start">
         <Feature2 />
-      </section>
+        </section>
     </div>
   );
 };
