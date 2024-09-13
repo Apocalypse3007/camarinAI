@@ -37,7 +37,7 @@ const FeatureBox = ({
   children,
 }: FeatureBoxProps) => (
   <div
-    className={`absolute w-2/5 h-64 ${
+    className={`absolute w-2/5 h-72 ${
       isInactive ? 'bg-black text-gray-500' : 'bg-gray-800 text-white'
     } bg-opacity-80 backdrop-blur-md rounded-lg cursor-pointer transition-all duration-300 p-6 ${position} ${
       isActive
