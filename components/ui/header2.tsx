@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className="bg-[#161616] text-white py-4">
+    <header className="bg-[#161616] text-white py-2">
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center ">
           {/* Logo Section */}
           <div
             className="text-2xl font-bold tracking-widest"

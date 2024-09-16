@@ -34,9 +34,9 @@ export default function Header() {
       </div>
 
       {/* Header Content */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-6 py-4 text-center">
         <div className="inline-flex items-center justify-center mb-4">
-          <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+          <div className="w-2 h-2 bg-emerald-300 rounded-full mr-2 shine"></div>
           <span className="text-green-400 text-sm">Find the right fit</span>
         </div>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Precise Measurement</h1>
@@ -45,6 +45,12 @@ export default function Header() {
           garment type, eliminating the need for size charts.
         </p>
       </div>
+      <style jsx>{`
+      .shine {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 1);
+      }
+    `}</style>
+      
     </header>
   );
 }

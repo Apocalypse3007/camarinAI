@@ -25,7 +25,13 @@ export default function SuggestPage() {
               <h2 className="text-4xl font-bold mb-4">Suggest</h2>
               <p className="text-xl text-emerald-300 mt-2">Get real-time recommendations as you browse</p>
               <br />
-              <div className={"mb-4 text-white-900"} onClick={() => handleSectionClick('sizeRecommendations')}>
+
+              <div
+                className={`mb-4 cursor-pointer ${
+                  activeSection === 'sizeRecommendations' ? 'text-white' : 'text-zinc-800'
+                }`}
+                onClick={() => handleSectionClick('sizeRecommendations')}
+              >
                 Size recommendations across brands
               </div>
               {activeSection === 'sizeRecommendations' && (
@@ -33,8 +39,11 @@ export default function SuggestPage() {
                   Receive ideal size recommendations based on the AI-powered measurements through real-time notifications.
                 </p>
               )}
+
               <div
-                className={`mb-4 ${activeSection === 'materialDetails' ? 'active-section' : 'inactive-section'}`}
+                className={`mb-4 cursor-pointer ${
+                  activeSection === 'materialDetails' ? 'text-white' : 'text-zinc-800'
+                }`}
                 onClick={() => handleSectionClick('materialDetails')}
               >
                 Material details and high definition renders
@@ -44,8 +53,11 @@ export default function SuggestPage() {
                   Get detailed information about material, quality, fit and view it in a high-definition 360 movable realistic render.
                 </p>
               )}
+
               <div
-                className={`mb-4 ${activeSection === 'relatedProducts' ? 'active-section' : 'inactive-section'}`}
+                className={`mb-4 cursor-pointer ${
+                  activeSection === 'relatedProducts' ? 'text-white' : 'text-zinc-800'
+                }`}
                 onClick={() => handleSectionClick('relatedProducts')}
               >
                 Related product assistance
@@ -56,28 +68,30 @@ export default function SuggestPage() {
                 </p>
               )}
             </div>
+
             <div className="md:w-full flex justify-center relative ml-40 image-container">
               {/* Image Container */}
               <div className="flex">
-                {/* First Image - suggest.png */}
-                <div>
-                  <Image
-                    src="/suggest.png"
-                    alt="Clothing item"
-                    width={300}
-                    height={400}
-                    className="rounded-lg"
-                  />
-                </div>
+                {/* Render only suggest.png when the first or third section is active */}
+                {activeSection !== 'materialDetails' && (
+                  <div>
+                    <Image
+                      src="/suggest.png"
+                      alt="Clothing item"
+                      width={300}
+                      height={400}
+                      className="rounded-lg"
+                    />
+                  </div>
+                )}
 
-                {/* Second Image - suggest2text.png */}
                 {activeSection === 'materialDetails' && (
                   <div className="ml-4">
                     <Image
                       src="/suggest2text.png"
                       alt="Additional background"
-                      width={200}
-                      height={250}
+                      width={500}
+                      height={450}
                       className="background-image"
                     />
                   </div>
@@ -101,11 +115,10 @@ export default function SuggestPage() {
                         role="button"
                         className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
                           selectedSize === size
-                          ? selectedSize === 'M'
-                            ? 'bg-green-500 shine'
-                            : 'bg-red-500 '
-                          : 'bg-gray-700'
-                      }
+                            ? selectedSize === 'M'
+                              ? 'bg-green-500 shine'
+                              : 'bg-red-500'
+                            : 'bg-gray-700'
                         }`}
                       >
                         {size}
@@ -139,14 +152,6 @@ export default function SuggestPage() {
         .shine {
           box-shadow: 0 0 20px rgba(0, 255, 0, 1);
         }
-        .active-section {
-          color: #00ff00;
-          cursor: pointer;
-        }
-        .inactive-section {
-          color: #555555;
-          cursor: pointer;
-        }
         .blend-in {
           animation: blendIn 0.5s ease-in-out;
         }
@@ -165,6 +170,13 @@ export default function SuggestPage() {
           display: flex;
           align-items: center;
           flex-direction: column;
+        }
+        .fixed-height-content-box {
+          height: 100px; /* Set a consistent height for the content box */
+          overflow: hidden; /* Hide overflowing content */
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       `}</style>
     </main>
