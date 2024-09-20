@@ -3,15 +3,16 @@
 import React, { useRef, useState, useEffect } from 'react';
 
 const Homepage = () => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const pathRef1 = useRef<SVGPathElement>(null);
-  const pathRef2 = useRef<SVGPathElement>(null);
+  const scrollContainerRef = useRef(null);
+  const pathRef1 = useRef(null);
+  const pathRef2 = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const handleScroll = () => {
     if (scrollContainerRef.current) {
       const scrollTop = scrollContainerRef.current.scrollTop;
-      const scrollHeight = scrollContainerRef.current.scrollHeight - scrollContainerRef.current.clientHeight;
+      const scrollHeight =
+        scrollContainerRef.current.scrollHeight - scrollContainerRef.current.clientHeight;
       const scrollFraction = scrollTop / scrollHeight;
       setScrollPosition(scrollFraction);
     }
@@ -25,110 +26,93 @@ const Homepage = () => {
     }
   }, []);
 
-  const getCirclePosition = (pathRef: React.RefObject<SVGPathElement>, isSecondPage: boolean) => {
+  const getCirclePosition = (pathRef) => {
     if (!pathRef.current) return { cx: 0, cy: 0 };
     const pathLength = pathRef.current.getTotalLength();
     const point = pathRef.current.getPointAtLength(scrollPosition * pathLength);
     return { cx: point.x, cy: point.y };
   };
 
-  const { cx: cx1, cy: cy1 } = getCirclePosition(pathRef1, false);
-  const { cx: cx2, cy: cy2 } = getCirclePosition(pathRef2, true);
-
+  const { cx: cx1, cy: cy1 } = getCirclePosition(pathRef1);
+  const { cx: cx2, cy: cy2 } = getCirclePosition(pathRef2);
 
   return (
     <div ref={scrollContainerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory">
-      <style jsx>{`
-        @import url('https://db.onlinewebfonts.com/c/d056bcf9dfd6ac922b71535de69e8827?family=Posterama+2001+W04+Thin');
-        
-        @keyframes textFlow {
-          0% {
-            color: transparent;
-          }
-          100% {
-            color: white;
-          }
-        }
-        .animated-text {
-          animation: textFlow 2s ease-in-out forwards;
-        }
-        .letter-spacing {
-          letter-spacing: 0.1em;
-        }
-        .underline {
-          position: relative;
-          display: inline-block;
-        }
-        .underline::after {
-          content: '';
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: -2px;
-          height: 3px;
-          background: linear-gradient(to right, transparent, #64CAB9 50%, transparent);
-        }
-        .highlight-button {
-          position: relative;
-          display: inline-block;
-          box-shadow: inset 0 0 0 2px transparent, 0 0 10px 2px rgba(255, 255, 255, 0.5);
-          transition: box-shadow 0.3s ease-in-out;
-        }
-        .highlight-button:hover {
-          box-shadow: inset 0 0 0 2px transparent, 0 0 10px 2px rgba(255, 255, 255, 1);
-        }
-        .camarin {
-          font-family: 'Posterama 2001 W04 Thin', sans-serif;
-        }
-        .shine-ball {
-          filter: drop-shadow(0 0 10px white);
-        }
-        .waveform {
-          filter: drop-shadow(0 0 10px white);
-        }
-        
-      `}</style>
+      {/* First Section */}
       <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative bg-neutral-900">
+        {/* Background Waveform and Moving Circle */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <svg width="100%" height="100%">
+          <svg className="w-full h-full">
             <path
               ref={pathRef1}
               d="M0 539.5C485.833 526.333 604.4 383.2 788 -26C1117.5 -537.5 1655.5 -96.9999 1284 406.5C1012.5 910 1839 975.5 2142 470"
               stroke="white"
               strokeWidth="2"
               fill="none"
-              className="waveform"
+              className="drop-shadow-[0_0_10px_white]"
             />
-            <circle cx={cx1} cy={cy1} r="10" fill="white" className="shine-ball" />
+            <circle
+              cx={cx1}
+              cy={cy1}
+              r="10"
+              fill="white"
+              className="drop-shadow-[0_0_10px_white]"
+            />
           </svg>
         </div>
-        <h1 className="text-6xl font-bold highlight-text posterama-font">CAMARIN</h1>
-        <p className="text-xl mt-4 animated-text">Powered by AI</p>
+        {/* Camarin Logo */}
+        <img
+          src="/camarin.svg"
+          alt="Camarin Logo"
+          className="mt-2 mx-auto w-[400px] h-auto"
+          aria-label="Camarin Logo"
+        />
+        {/* Subtitle */}
+        <p className="text-xl mt-4 animate-[textFlow_2s_ease-in-out_forwards]">Powered by AI</p>
       </section>
+
+      {/* Second Section */}
       <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative bg-neutral-900">
+        {/* Background Waveform and Moving Circle */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <svg width="100%" height="100%">
+          <svg className="w-full h-full">
             <path
               ref={pathRef2}
               d="M0 539.5C485.833 526.333 604.4 383.2 788 -26C1117.5 -537.5 1655.5 -96.9999 1284 406.5C1012.5 910 1839 975.5 2142 47"
               stroke="white"
               strokeWidth="2"
               fill="none"
-              className="waveform"
+              className="drop-shadow-[0_0_10px_white]"
             />
-            <circle cx={cx2} cy={cy2} r="10" fill="white" className="shine-ball" />
+            <circle
+              cx={cx2}
+              cy={cy2}
+              r="10"
+              fill="white"
+              className="drop-shadow-[0_0_10px_white]"
+            />
           </svg>
         </div>
+        {/* Content */}
         <div className="text-center max-w-xl py-4">
-          <h2 className="text-3xl letter-spacing">
-            The <span className="underline no-underline">convenience</span> of online shopping with the{" "}
-            <span className="underline no-underline">certainty</span> {" "}
+          <h2 className="text-3xl tracking-wide">
+            The{' '}
+            <span className="relative inline-block underline decoration-[#64CAB9] decoration-3 underline-offset-2">
+              convenience
+            </span>{' '}
+            of online shopping with the{' '}
+            <span className="relative inline-block underline decoration-[#64CAB9] decoration-3 underline-offset-2">
+              certainty
+            </span>{' '}
             of an in-store experience.
           </h2>
           <p className="text-lg mt-4 text-slate-500">
-            All this, and more, with our cutting-edge SaaS library integrates seamlessly with your web-app.
+            All this, and more, with our cutting-edge SaaS library that integrates seamlessly with
+            your web-app.
           </p>
-          <button className="highlight-button mt-10 px-6 py-3 bg-gradient-to-r from-neutral-700 to-zinc-900 rounded-full">Book a demo &gt; </button>
+          <button className="relative inline-block mt-10 px-6 py-3 bg-gradient-to-r from-neutral-700 to-zinc-900 rounded-full shadow-[inset_0_0_0_2px_transparent,0_0_10px_2px_rgba(255,255,255,0.5)] transition-shadow duration-300 ease-in-out hover:shadow-[inset_0_0_0_2px_transparent,0_0_10px_2px_rgba(255,255,255,1)]">
+            Book a demo &gt;
+          </button>
         </div>
       </section>
     </div>
