@@ -3,6 +3,7 @@ import Homepage from "@components/homepage";
 import Feature1 from '@components/feature1';
 import Feature2 from '@components/feature2';
 
+
 const Page = () => {
   return (
     <div className="h-screen overflow-y-scroll snap-y snap-mandatory">
@@ -15,6 +16,8 @@ const Page = () => {
       <section className="h-screen snap-start">
         <Feature2 />
         </section>
+      <section className="h-screen snap-start">
+      </section>
     </div>
   );
 };
