@@ -97,11 +97,29 @@ const Homepage = () => {
         <div className="text-center max-w-xl py-4">
           <h2 className="text-3xl tracking-wide">
             The{' '}
-            <span className="relative inline-block underline decoration-[#64CAB9] decoration-3 underline-offset-2">
+            <span
+              className="relative inline-block underline decoration-3 underline-offset-2"
+              style={{
+                textDecoration: "none",
+                backgroundImage: 'linear-gradient(to right, transparent, #64CAB9, transparent)',
+                backgroundSize: '100% 3px',
+                backgroundPosition: '0 100%',
+                backgroundRepeat: 'no-repeat',
+              }}
+            >
               convenience
             </span>{' '}
             of online shopping with the{' '}
-            <span className="relative inline-block underline decoration-[#64CAB9] decoration-3 underline-offset-2">
+            <span
+              className="relative inline-block underline decoration-3 underline-offset-2"
+              style={{
+                textDecoration: "none",
+                backgroundImage: 'linear-gradient(to right, transparent, #64CAB9, transparent)',
+                backgroundSize: '100% 3px',
+                backgroundPosition: '0 100%',
+                backgroundRepeat: 'no-repeat',
+              }}
+            >
               certainty
             </span>{' '}
             of an in-store experience.
