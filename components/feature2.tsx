@@ -7,15 +7,14 @@ import * as THREE from 'three'; // Import THREE for color manipulation
 import Image from 'next/image';
 import Header2 from './ui/header2';
 
-
 const AvatarModel = ({ outfit }) => {
   const colorMap = {
     'default': '#161616',
     'red': '#161616',
     'black': '#161616',
-    'red_black': '#161616', 
-    'red_green': '#161616', 
-    'green': '#161616',    
+    'red_black': '#161616',
+    'red_green': '#161616',
+    'green': '#161616',
   };
 
   // Refs for current and target colors
@@ -95,8 +94,15 @@ const FeatureBox = ({
 );
 
 // Fit Label Component
-const FitLabel = ({ text, position }: { text: string; position: string }) => (
-  <div className={`absolute ${position} text-white px-3 py-1 rounded-3xl text-sm z-30 backdrop-blur-3xl `}>
+const FitLabel = ({ text, position, className }: { text: React.ReactNode; position: string; className?: string }) => (
+  <div
+    className={`absolute ${position} text-white text-lg px-5 py-2 rounded-3xl z-30 bg-gradient-to-r from-zinc-900 to-neutral-700 ${className || ''}`}
+    style={{
+      mixBlendMode: 'overlay',
+      backdropFilter: 'blur(10px)',
+      textShadow: '1px 1px 2px rgba(0, 0, 0, 0.7)',
+    }}
+  >
     {text}
   </div>
 );
@@ -176,7 +182,7 @@ export default function VirtualTryOn() {
       description:
         'Offer live and virtual try-ons with personalized avatars, allowing customers to visualize individual clothing items and accessories or curate unique outfits effortlessly.',
       position: 'top-0 left-0',
-      gradient: 'linear-gradient(135deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)',
+      gradient: 'linear-gradient(315deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0.6) 100%)',
     },
     {
       title: 'Real-Time Try-On',
@@ -184,7 +190,7 @@ export default function VirtualTryOn() {
       description:
         'Offer live and virtual try-ons with personalized avatars, allowing customers to visualize individual clothing items and accessories or curate unique outfits effortlessly.',
       position: 'top-0 right-0',
-      gradient: 'linear-gradient(225deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)',
+      gradient: 'linear-gradient(315deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0.6) 100%)',
     },
     {
       title: 'High-Fidelity Avatars',
@@ -192,7 +198,7 @@ export default function VirtualTryOn() {
       description:
         'Offer live and virtual try-ons with personalized avatars, allowing customers to visualize individual clothing items and accessories or curate unique outfits effortlessly.',
       position: 'bottom-0 left-0',
-      gradient: 'linear-gradient(45deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)',
+      gradient: 'linear-gradient(315deg, rgba(0,0,0,0) 0%, rgba(0,128,128,0.6) 100%)',
     },
     {
       title: 'Create outfit combinations',
@@ -200,7 +206,7 @@ export default function VirtualTryOn() {
       description:
         'Offer live and virtual try-ons with personalized avatars, allowing customers to visualize individual clothing items and accessories or curate unique outfits effortlessly.',
       position: 'bottom-0 right-0',
-      gradient: 'linear-gradient(315deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0) 100%)',
+      gradient: 'linear-gradient(315deg, rgba(0,128,128,0.6) 0%, rgba(0,0,0,0.6) 100%)',
     },
   ];
 
@@ -335,20 +341,33 @@ export default function VirtualTryOn() {
           {activeFeature === 0 && (
             <>
               <FitLabel
-                text="Good fit around the chest ✅"
-                position="top-1/4 right-1/3"
+                text={<><span className="text-teal-400">Good fit</span> around the chest ✅</>}
+                position="top-[25%] right-[33.33%]"
               />
               <FitLabel
-                text="Good fit around the waist ✅"
-                position="bottom-2/4 left-1/3"
+                text={<><span className="text-teal-400">Good fit</span> around the waist ✅</>}
+                position="bottom-[50%] left-[37%]"
               />
               <FitLabel
-                text="Length is short ❌"
-                position="bottom-1/2 right-1/3"
+                text={<>Length is <span className="text-orange-700">short</span> ❌</>}
+                position="bottom-[55%] right-[38%]"
               />
             </>
           )}
         </div>
+        <style jsx>{`
+
+        .feature-box::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 4px; /* Adjust the height of the border */
+          background: linear-gradient(to right, black, #78716c); /* Gradient from black to stone-500 */
+          border-radius: 0 0 1.5rem 1.5rem; /* Match the border radius of the box */
+        }
+`}</style>
       </main>
     </div>
   );
