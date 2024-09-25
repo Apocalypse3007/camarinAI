@@ -7,16 +7,15 @@ import * as THREE from 'three'; // Import THREE for color manipulation
 import Image from 'next/image';
 import Header2 from './ui/header2';
 
-// Avatar Model Component with Smooth Color Transition
+
 const AvatarModel = ({ outfit }) => {
-  // Define color mapping
   const colorMap = {
     'default': '#161616',
     'red': '#161616',
     'black': '#161616',
-    'red_black': '#161616', // Red T-shirt + Black shorts
-    'red_green': '#161616', // Red T-shirt + Green shorts
-    'green': '#161616',     // Green shorts only
+    'red_black': '#161616', 
+    'red_green': '#161616', 
+    'green': '#161616',    
   };
 
   // Refs for current and target colors
@@ -67,17 +66,17 @@ const FeatureBox = ({
   children,
 }: FeatureBoxProps) => (
   <div
-    className={`absolute w-2/5 h-72 rounded-3xl bg-opacity-80 backdrop-blur-md cursor-pointer transition-all duration-300 p-6 pr-24 overflow-visible ${position} ${
+    className={`absolute w-2/5 h-72 bg-opacity-80 backdrop-blur-md cursor-pointer transition-all duration-300 p-6 pr-24 overflow-visible rounded-3xl ${position} ${
       isActive ? 'scale-105' : 'opacity-50'
     }`}
     onClick={onClick}
     style={{
       background: isInactive ? '#161616' : gradient,
       zIndex: 20,
-      borderRadius: '24px',
       margin: '4px',
       transform: isInactive ? 'translateX(-8px)' : 'none',
       border: isInactive ? '2px solid transparent' : 'none',
+      borderRadius: isInactive ? '1.5rem' : '1.5rem',
       backgroundClip: isInactive ? 'padding-box, border-box' : undefined,
       borderImage: isInactive
         ? 'linear-gradient(to right, #3f3f46, #27272a) 1'
@@ -87,9 +86,9 @@ const FeatureBox = ({
   >
     {/* Text Content Container */}
     <div className="text-container w-full max-w-[70%]">
-      <h3 className={`text-3xl font-bold mb-2 ${isInactive ? 'text-gray-500' : 'text-white'}`}>{title}</h3>
-      <p className={`text-lg py-2 ${isInactive ? 'text-gray-500' : 'text-emerald-300'}`}>{caption}</p>
-      <p className={`text-sm ${isInactive ? 'text-gray-500' : 'text-gray-300'}`}>{description}</p>
+      <h3 className={`text-3xl mb-2 ${isInactive ? 'text-gray-500' : 'text-white'}`}>{title}</h3>
+      <p className={`text-xl py-2 ${isInactive ? 'text-gray-500' : 'text-emerald-300'}`}>{caption}</p>
+      <p className={`text-lg ${isInactive ? 'text-gray-500' : 'text-gray-300'}`}>{description}</p>
     </div>
     {children}
   </div>
@@ -97,7 +96,7 @@ const FeatureBox = ({
 
 // Fit Label Component
 const FitLabel = ({ text, position }: { text: string; position: string }) => (
-  <div className={`absolute ${position} text-white px-3 py-1 rounded-full text-sm z-30 backdrop-blur-3xl`}>
+  <div className={`absolute ${position} text-white px-3 py-1 rounded-3xl text-sm z-30 backdrop-blur-3xl `}>
     {text}
   </div>
 );
@@ -232,11 +231,14 @@ export default function VirtualTryOn() {
       <Header2 />
       <main className="relative h-screen w-full flex flex-col items-center justify-center p-8">
         <div className="text-center mb-8">
-          <div className="inline-block px-2 py-1 bg-teal-500 bg-opacity-20 text-teal-300 text-sm rounded-full mb-2">
-            Your digital changing room
-          </div>
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-6 text-center">
+            <div className="inline-flex items-center justify-center mb-4">
+              <div className="w-2 h-2 bg-emerald-300 rounded-full mr-2 shine"></div>
+              <span className="text-emerald-300 text-sm">Your digital changing room</span>
+            </div>
+            </div>
           <h2 className="text-4xl font-bold mb-4">Virtual Try-On</h2>
-          <p className="max-w-2xl mx-auto text-gray-400">
+          <p className="max-w-xl mx-auto text-gray-400">
             Offer live and virtual try-ons with personalized avatars, allowing customers to visualize individual clothing
             items and accessories or curate unique outfits effortlessly.
           </p>

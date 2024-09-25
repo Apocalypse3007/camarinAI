@@ -8,16 +8,16 @@ export default function ScanPage() {
     <main className="h-full flex items-center justify-center text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className="p-[3px] rounded-3xl bg-gradient-to-r from-zinc-800 to-neutral-700"
+          className="p-[3px] rounded-3xl bg-gradient-to-r from-black to-stone-500"
         >
           <div className="bg-[#161616] rounded-3xl p-8 flex flex-col md:flex-row items-center min-h-[400px]">
             <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-              <div className="text-gray-400 mb-2">Step 1</div>
-              <h2 className="text-4xl font-bold mb-4">Scan</h2>
+              <div className="text-xl text-gray-400 mb-2">Step 1</div>
+              <h2 className="text-5xl mb-4">Scan</h2>
               <div className="text-xl text-emerald-300 mb-4">
                 Precise measurements with a quick scan
               </div>
-              <p className="text-neutral-400">
+              <p className="text-neutral-400 tracking-wider">
                 The one-time, quick onboarding process simply requires the user to
                 record dimensions using their personal device, allowing our AI to
                 capture their true measurements with exceptional accuracy. The

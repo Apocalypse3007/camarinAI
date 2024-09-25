@@ -18,21 +18,26 @@ export default function SuggestPage() {
   return (
     <main className="h-full flex items-center justify-center text-white" style={{ backgroundColor: '#161616' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-[3px] rounded-3xl bg-gradient-to-r from-zinc-800 to-neutral-700">
+        <div className="p-[3px] rounded-3xl bg-gradient-to-r from-black to-stone-500">
           <div className="bg-[#161616] rounded-3xl p-8 flex flex-col md:flex-row items-center min-h-[600px]">
-            <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-              <div className="text-neutral-400 mb-2">Step 3</div>
-              <h2 className="text-4xl font-bold mb-4">Suggest</h2>
+            {/* Left Section */}
+            <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8 fixed-width-container">
+              <div className="text-xl text-neutral-400 mb-2">Step 3</div>
+              <h2 className="text-5xl mb-4">Suggest</h2>
               <p className="text-xl text-emerald-300 mt-2">Get real-time recommendations as you browse</p>
               <br />
 
+              {/* Clickable Headings with Conditional Bullet Points */}
               <div
-                className={`mb-4 cursor-pointer ${
+                className={`mb-4 cursor-pointer flex items-center ${
                   activeSection === 'sizeRecommendations' ? 'text-white' : 'text-zinc-800'
                 }`}
                 onClick={() => handleSectionClick('sizeRecommendations')}
               >
-                Size recommendations across brands
+                {activeSection === 'sizeRecommendations' && (
+                  <span className="inline-block w-3 h-3 bg-white rounded-full mr-2"></span>
+                )}
+                <span>Size recommendations across brands</span>
               </div>
               {activeSection === 'sizeRecommendations' && (
                 <p className="text-neutral-400 mb-4 blend-in">
@@ -41,12 +46,15 @@ export default function SuggestPage() {
               )}
 
               <div
-                className={`mb-4 cursor-pointer ${
+                className={`mb-4 cursor-pointer flex items-center ${
                   activeSection === 'materialDetails' ? 'text-white' : 'text-zinc-800'
                 }`}
                 onClick={() => handleSectionClick('materialDetails')}
               >
-                Material details and high definition renders
+                {activeSection === 'materialDetails' && (
+                  <span className="inline-block w-3 h-3 bg-white rounded-full mr-2"></span>
+                )}
+                <span>Material details and high definition renders</span>
               </div>
               {activeSection === 'materialDetails' && (
                 <p className="text-neutral-400 mb-4 blend-in">
@@ -55,12 +63,15 @@ export default function SuggestPage() {
               )}
 
               <div
-                className={`mb-4 cursor-pointer ${
+                className={`mb-4 cursor-pointer flex items-center ${
                   activeSection === 'relatedProducts' ? 'text-white' : 'text-zinc-800'
                 }`}
                 onClick={() => handleSectionClick('relatedProducts')}
               >
-                Related product assistance
+                {activeSection === 'relatedProducts' && (
+                  <span className="inline-block w-3 h-3 bg-white rounded-full mr-2"></span>
+                )}
+                <span>Related product assistance</span>
               </div>
               {activeSection === 'relatedProducts' && (
                 <p className="text-neutral-400 mb-4 blend-in">
@@ -69,6 +80,7 @@ export default function SuggestPage() {
               )}
             </div>
 
+            {/* Right Section */}
             <div className="md:w-full flex justify-center relative ml-40 image-container">
               {/* Image Container */}
               <div className="flex">
@@ -113,11 +125,11 @@ export default function SuggestPage() {
                         }}
                         tabIndex={0}
                         role="button"
-                        className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
+                        className={`w-10 h-10 flex items-center justify-center rounded-full text-sm cursor-pointer ${
                           selectedSize === size
                             ? selectedSize === 'M'
-                              ? 'bg-green-500 shine'
-                              : 'bg-red-500'
+                              ? 'bg-teal-400 shine'
+                              : 'bg-orange-700'
                             : 'bg-gray-700'
                         }`}
                       >
@@ -125,6 +137,7 @@ export default function SuggestPage() {
                       </span>
                     ))}
                   </div>
+                  {/* Size Recommendations */}
                   {selectedSize === 'L' && (
                     <div className="mt-4 text-red-500">
                       <p>Sleeves might be long for you, loose around the chest ❌</p>
@@ -171,13 +184,16 @@ export default function SuggestPage() {
           align-items: center;
           flex-direction: column;
         }
-        .fixed-height-content-box {
-          height: 100px; /* Set a consistent height for the content box */
-          overflow: hidden; /* Hide overflowing content */
-          display: flex;
-          align-items: center;
-          justify-content: center;
+        .fixed-width-container {
+          width: 800px; /* Set a fixed width for the container */
         }
+        .fixed-height-content-box {
+          height: 800px; /* Set a fixed width for the container */
+        }
+        .shine {
+          box-shadow: 0 0 20px rgba(0, 255, 0, 1);
+          }
+          
       `}</style>
     </main>
   );
