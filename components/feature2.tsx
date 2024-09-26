@@ -94,19 +94,21 @@ const FeatureBox = ({
 );
 
 // Fit Label Component
-const FitLabel = ({ text, position, className }: { text: React.ReactNode; position: string; className?: string }) => (
+const FitLabel = ({
+  text,
+  position,
+  className,
+}: {
+  text: React.ReactNode;
+  position: string;
+  className?: string;
+}) => (
   <div
-    className={`absolute ${position} text-white text-lg px-5 py-2 rounded-3xl z-30 bg-gradient-to-r from-zinc-900 to-neutral-700 ${className || ''}`}
-    style={{
-      mixBlendMode: 'overlay',
-      backdropFilter: 'blur(10px)',
-      textShadow: '1px 1px 2px rgba(0, 0, 0, 0.7)',
-    }}
+    className={`absolute ${position} text-white text-lg px-5 py-2 rounded-3xl z-30 bg-gradient-to-r from-[rgba(38,38,38,0.3] to-[rgba(24,24,27,0.3)] backdrop-blur-lg ${className || ''}`}
   >
     {text}
   </div>
 );
-
 // Main Component
 export default function VirtualTryOn() {
   const [activeFeature, setActiveFeature] = useState<number | null>(null);
@@ -342,15 +344,15 @@ export default function VirtualTryOn() {
             <>
               <FitLabel
                 text={<><span className="text-teal-400">Good fit</span> around the chest ✅</>}
-                position="top-[25%] right-[33.33%]"
+                position="top-[25%] right-[31.5%]"
               />
               <FitLabel
                 text={<><span className="text-teal-400">Good fit</span> around the waist ✅</>}
-                position="bottom-[50%] left-[37%]"
+                position="bottom-[48%] left-[32%]"
               />
               <FitLabel
                 text={<>Length is <span className="text-orange-700">short</span> ❌</>}
-                position="bottom-[55%] right-[38%]"
+                position="bottom-[55%] right-[36.5%]"
               />
             </>
           )}
