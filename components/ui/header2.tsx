@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function Header() {
   return (
-    <header className="bg-[#161616] text-white py-2 pt-8">
+    <header className="bg-[#161616] text-white pt-8">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo Section */}

@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, useGLTF } from '@react-three/drei';
 
 export default function SuggestPage() {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -13,6 +15,11 @@ export default function SuggestPage() {
 
   const handleSectionClick = (section: string) => {
     setActiveSection(section);
+  };
+
+  const Model = () => {
+    const { scene } = useGLTF('/suggestmodel.glb');
+    return <primitive object={scene} scale={12} />; // Increased scale
   };
 
   return (
@@ -30,7 +37,7 @@ export default function SuggestPage() {
               {/* Clickable Headings with Conditional Bullet Points */}
               <div
                 className={`mb-4 cursor-pointer flex items-center ${
-                  activeSection === 'sizeRecommendations' ? 'text-white' : 'text-zinc-800'
+                  activeSection === 'sizeRecommendations' ? 'text-white' : 'text-zinc-700'
                 }`}
                 onClick={() => handleSectionClick('sizeRecommendations')}
               >
@@ -47,7 +54,7 @@ export default function SuggestPage() {
 
               <div
                 className={`mb-4 cursor-pointer flex items-center ${
-                  activeSection === 'materialDetails' ? 'text-white' : 'text-zinc-800'
+                  activeSection === 'materialDetails' ? 'text-white' : 'text-zinc-700'
                 }`}
                 onClick={() => handleSectionClick('materialDetails')}
               >
@@ -64,7 +71,7 @@ export default function SuggestPage() {
 
               <div
                 className={`mb-4 cursor-pointer flex items-center ${
-                  activeSection === 'relatedProducts' ? 'text-white' : 'text-zinc-800'
+                  activeSection === 'relatedProducts' ? 'text-white' : 'text-zinc-700'
                 }`}
                 onClick={() => handleSectionClick('relatedProducts')}
               >
@@ -84,8 +91,8 @@ export default function SuggestPage() {
             <div className="md:w-full flex justify-center relative ml-40 image-container">
               {/* Image Container */}
               <div className="flex">
-                {/* Render only suggest.png when the first or third section is active */}
-                {activeSection !== 'materialDetails' && (
+                {/* Render suggest.png when the section is sizeRecommendations */}
+                {activeSection === 'sizeRecommendations' && (
                   <div>
                     <Image
                       src="/suggest.png"
@@ -97,6 +104,7 @@ export default function SuggestPage() {
                   </div>
                 )}
 
+                {/* Render suggest2text.png when the section is materialDetails */}
                 {activeSection === 'materialDetails' && (
                   <div className="ml-4">
                     <Image
@@ -106,6 +114,19 @@ export default function SuggestPage() {
                       height={450}
                       className="background-image"
                     />
+                  </div>
+                )}
+
+                {/* Render 3D model when the section is relatedProducts */}
+                {activeSection === 'relatedProducts' && (
+                  <div className="w-full h-full">
+                    <Canvas camera={{ position: [0, 0, 20] }}>
+                      <ambientLight intensity={1} />
+                      <directionalLight position={[5, 5, 5]} intensity={1} />
+                      <directionalLight position={[-5, -5, -5]} intensity={0.5} />
+                      <Model />
+                      <OrbitControls />
+                    </Canvas>
                   </div>
                 )}
               </div>
@@ -192,8 +213,7 @@ export default function SuggestPage() {
         }
         .shine {
           box-shadow: 0 0 20px rgba(0, 255, 0, 1);
-          }
-          
+        }
       `}</style>
     </main>
   );

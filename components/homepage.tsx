@@ -37,7 +37,7 @@ const Homepage = () => {
   const { cx: cx2, cy: cy2 } = getCirclePosition(pathRef2);
 
   return (
-    <div ref={scrollContainerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory">
+    <div ref={scrollContainerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory custom-scrollbar">
       {/* First Section */}
       <section className="h-screen flex flex-col justify-center items-center text-white snap-start relative bg-neutral-900">
         {/* Background Waveform and Moving Circle */}
@@ -133,6 +133,26 @@ const Homepage = () => {
           </button>
         </div>
       </section>
+
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background-color: #161616;
+          border-radius: 10px;
+          border: 2px solid transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background-color: #333;
+        }
+      `}</style>
     </div>
   );
 };

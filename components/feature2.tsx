@@ -74,19 +74,15 @@ const FeatureBox = ({
       zIndex: 20,
       margin: '4px',
       transform: isInactive ? 'translateX(-8px)' : 'none',
-      border: isInactive ? '2px solid transparent' : 'none',
-      borderRadius: isInactive ? '1.5rem' : '1.5rem',
-      backgroundClip: isInactive ? 'padding-box, border-box' : undefined,
-      borderImage: isInactive
-        ? 'linear-gradient(to right, #3f3f46, #27272a) 1'
+      boxShadow: isInactive
+        ? '0 0 0 2px rgba(63, 63, 70, 1), 0 0 0 4px rgba(39, 39, 42, 1)'
         : 'none',
-      borderImageSlice: 1,
     }}
   >
     {/* Text Content Container */}
     <div className="text-container w-full max-w-[70%]">
       <h3 className={`text-3xl mb-2 ${isInactive ? 'text-gray-500' : 'text-white'}`}>{title}</h3>
-      <p className={`text-xl py-2 ${isInactive ? 'text-gray-500' : 'text-emerald-300'}`}>{caption}</p>
+      <p className={`text-xl tracking-[0.1em] py-2 ${isInactive ? 'text-gray-500' : 'text-emerald-300'}`}>{caption}</p>
       <p className={`text-lg ${isInactive ? 'text-gray-500' : 'text-gray-300'}`}>{description}</p>
     </div>
     {children}
@@ -241,7 +237,7 @@ export default function VirtualTryOn() {
         <div className="text-center mb-8">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-6 text-center">
             <div className="inline-flex items-center justify-center mb-4">
-              <div className="w-2 h-2 bg-emerald-300 rounded-full mr-2 shine"></div>
+              <div className="w-2 h-2 bg-emerald-300 rounded-3xl mr-2 shine"></div>
               <span className="text-emerald-300 text-sm">Your digital changing room</span>
             </div>
             </div>
@@ -310,7 +306,7 @@ export default function VirtualTryOn() {
                     className="object-contain cursor-pointer absolute transition-transform duration-300 transform hover:scale-105"
                     style={{
                       right: '-170px',
-                      top: '-130px',
+                      top: '-170px',
                       zIndex: 30,
                     }}
                     onClick={handleRedTshirtClick}
@@ -328,8 +324,8 @@ export default function VirtualTryOn() {
                     height={250}
                     className="object-contain cursor-pointer absolute transition-transform duration-300 transform hover:scale-105"
                     style={{
-                      right: '-170px',
-                      top: '-130px',
+                      right: '-150px',
+                      top: '-170px',
                       zIndex: 30,
                     }}
                     onClick={handleBlackShortClick}
