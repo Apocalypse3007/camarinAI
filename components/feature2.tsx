@@ -7,39 +7,6 @@ import * as THREE from 'three'; // Import THREE for color manipulation
 import Image from 'next/image';
 import Header2 from './ui/header2';
 
-const AvatarModel = ({ outfit }) => {
-  const colorMap = {
-    'default': '#161616',
-    'red': '#161616',
-    'black': '#161616',
-    'red_black': '#161616',
-    'red_green': '#161616',
-    'green': '#161616',
-  };
-
-  // Refs for current and target colors
-  const materialRef = useRef();
-  const [currentColor] = useState(new THREE.Color(colorMap['default']));
-  const [targetColor, setTargetColor] = useState(new THREE.Color(colorMap[outfit] || colorMap['default']));
-
-  useEffect(() => {
-    setTargetColor(new THREE.Color(colorMap[outfit] || colorMap['default']));
-  }, [outfit]);
-
-  useFrame(() => {
-    if (materialRef.current) {
-      materialRef.current.color.lerp(targetColor, 0.1); // Adjust the lerp factor for speed
-    }
-  });
-
-  return (
-    <mesh>
-      <boxGeometry args={[1, 2, 0.5]} />
-      <meshStandardMaterial ref={materialRef} color={currentColor} />
-    </mesh>
-  );
-};
-
 // Feature Box Component
 type FeatureBoxProps = {
   title: string;
