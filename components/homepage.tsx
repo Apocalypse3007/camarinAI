@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 
 const Homepage = () => {
-  const scrollContainerRef = useRef(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const pathRef1 = useRef(null);
   const pathRef2 = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -26,7 +26,7 @@ const Homepage = () => {
     }
   }, []);
 
-  const getCirclePosition = (pathRef) => {
+  const getCirclePosition = (pathRef: React.RefObject<SVGPathElement>) => {
     if (!pathRef.current) return { cx: 0, cy: 0 };
     const pathLength = pathRef.current.getTotalLength();
     const point = pathRef.current.getPointAtLength(scrollPosition * pathLength);
