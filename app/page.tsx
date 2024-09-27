@@ -7,6 +7,7 @@ import Feature3 from '@components/feature3';
 
 const Page = () => {
   return (
+    <>
     <div className="h-screen overflow-y-scroll snap-y snap-mandatory custom-scrollbar">
       <section className="h-screen snap-start overflow-hidden">
         <Homepage />
@@ -40,6 +41,7 @@ const Page = () => {
         }
       `}</style>
     </div>
+    </>
   );
 };
 
