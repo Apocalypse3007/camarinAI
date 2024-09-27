@@ -158,7 +158,7 @@ export default function SuggestPage() {
               {/* Size Bar */}
               {activeSection === 'sizeRecommendations' && (
                 <div className="flex flex-col items-center mt-4 w-full absolute bottom-[10%] right-[5%]">
-                  <div className="size-bar flex justify-center space-x-4 mt-6"> {/* Increased space-x-4 for more padding */}
+                  <div className="size-bar flex justify-center space-x-6 mt-6">
                     {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
                       <span
                         key={size}
@@ -170,36 +170,55 @@ export default function SuggestPage() {
                         }}
                         tabIndex={0}
                         role="button"
-                        className={`w-14 h-14 flex items-center justify-center rounded-full text-sm cursor-pointer ${
-                          selectedSize === size
-                            ? selectedSize === 'M'
-                              ? 'bg-teal-400 shine'
-                              : 'bg-orange-700'
-                            : 'bg-gray-700'
-                        } ${size === 'M' ? 'font-bold' : ''}`} // Add font-bold class for size M
+                        className={`relative w-14 h-14 flex items-center justify-center rounded-full text-sm cursor-pointer ${
+                          selectedSize === size ? 'shine selected' : 'bg-gray-700'
+                        } ${selectedSize === size ? (size === 'M' ? 'bg-teal-400' : 'bg-orange-700') : ''}`}
                       >
-                        {size}
+                        {selectedSize === size && (
+                          <>
+                            <span className="absolute inset-0 flex items-center justify-center">
+                              <span className={`absolute ${size === 'M' ? 'bg-teal-400' : 'bg-orange-700'} w-20 h-20 opacity-50 rounded-full`}></span>
+                              <span className={`absolute ${size === 'M' ? 'bg-teal-400' : 'bg-orange-700'} w-24 h-24 opacity-30 rounded-full`}></span>
+                            </span>
+                          </>
+                        )}
+                        <span className={`relative ${size === 'M' ? 'text-lg font-bold' : ''}`}>{size}</span>
                       </span>
                     ))}
                   </div>
+              
                   {/* Size Recommendations */}
-                  {selectedSize === 'L' && (
-                    <div className="mt-4 text-red-500">
-                      <p>Sleeves might be long for you, loose around the chest ❌</p>
-                      <p>We recommend you choose the size M instead for a perfect fit.</p>
-                    </div>
-                  )}
-                  {selectedSize === 'M' && (
-                    <div className="mt-4 text-green-500">
-                      <p>We recommend the size M for a perfect fit ✅</p>
-                    </div>
-                  )}
-                  {selectedSize === 'S' && (
-                    <div className="mt-4 text-red-500">
-                      <p>Sleeves might be short for you, loose around the chest ❌</p>
-                      <p>We recommend you choose the size M instead for a perfect fit.</p>
-                    </div>
-                  )}
+                  <div className="flex justify-center">
+                    {selectedSize === 'L' && (
+                      <div className="mt-4 text-red-500 text-center">
+                        <p>Sleeves might be long for you, loose around the chest ❌</p>
+                        <p>We recommend you choose the size M instead for a perfect fit.</p>
+                      </div>
+                    )}
+                    {selectedSize === 'M' && (
+                      <div className="mt-4 text-green-500 text-center">
+                        <p>We recommend the size M for a perfect fit ✅</p>
+                      </div>
+                    )}
+                    {selectedSize === 'S' && (
+                      <div className="mt-4 text-red-500 text-center">
+                        <p>Sleeves might be short for you, tight around the chest ❌</p>
+                        <p>We recommend you choose the size M instead for a perfect fit.</p>
+                      </div>
+                    )}
+                    {selectedSize === 'XL' && (
+                      <div className="mt-4 text-red-500 text-center">
+                        <p>Sleeves might be long for you, tight around the chest ❌</p>
+                        <p>We recommend you choose the size M instead for a perfect fit.</p>
+                      </div>
+                    )}
+                    {selectedSize === 'XS' && (
+                      <div className="mt-4 text-red-500 text-center">
+                        <p>Sleeves might be short for you, tight around the chest ❌</p>
+                        <p>We recommend you choose the size M instead for a perfect fit.</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
@@ -235,8 +254,24 @@ export default function SuggestPage() {
         .fixed-height-content-box {
           height: 800px; /* Set a fixed width for the container */
         }
-        .shine {
-          box-shadow: 0 0 20px rgba(0, 255, 0, 1);
+        .selected::before,
+        .selected::after {
+          content: '';
+          position: absolute;
+          border-radius: 50%;
+          opacity: 0.5;
+        }
+        .selected::before {
+          width: 40px;
+          height: 40px;
+          background-color: rgba(0, 128, 128, 0.5); /* Adjust color and opacity */
+          z-index: -1;
+        }
+        .selected::after {
+          width: 60px;
+          height: 60px;
+          background-color: rgba(0, 128, 128, 0.3); /* Adjust color and opacity */
+          z-index: -2;
         }
       `}</style>
     </main>

@@ -5,14 +5,14 @@ import Image from 'next/image';
 export default function Header() {
   return (
     <header className="bg-[#161616] text-white pt-8">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-6 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo Section */}
           <div className="text-center">
             <Image
               src="/camarin.svg" 
               alt="Camarin Logo"
-              className="mt-2 w-32 h-auto mx-auto"
+              className="w-32 h-auto mx-auto"
               width={128} 
               height={128} 
               aria-label="Camarin Logo"
