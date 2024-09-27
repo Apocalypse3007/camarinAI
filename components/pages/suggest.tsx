@@ -2,12 +2,11 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
 
 export default function SuggestPage() {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>('sizeRecommendations');
+  const [currentImage, setCurrentImage] = useState<string>('/suggest.png');
 
   const handleSizeClick = (size: string) => {
     setSelectedSize(size);
@@ -17,9 +16,8 @@ export default function SuggestPage() {
     setActiveSection(section);
   };
 
-  const Model = () => {
-    const { scene } = useGLTF('/suggestmodel.glb');
-    return <primitive object={scene} scale={12} />; // Increased scale
+  const handleImageClick = (image: string) => {
+    setCurrentImage(image);
   };
 
   return (
@@ -97,7 +95,7 @@ export default function SuggestPage() {
                     <Image
                       src="/suggest.png"
                       alt="Clothing item"
-                      width={300}
+                      width={400}
                       height={400}
                       className="rounded-lg"
                     />
@@ -117,24 +115,50 @@ export default function SuggestPage() {
                   </div>
                 )}
 
-                {/* Render 3D model when the section is relatedProducts */}
+                {/* Render suggest.png and additional images when the section is relatedProducts */}
                 {activeSection === 'relatedProducts' && (
-                  <div className="w-full h-full">
-                    <Canvas camera={{ position: [0, 0, 20] }}>
-                      <ambientLight intensity={1} />
-                      <directionalLight position={[5, 5, 5]} intensity={1} />
-                      <directionalLight position={[-5, -5, -5]} intensity={0.5} />
-                      <Model />
-                      <OrbitControls />
-                    </Canvas>
+                  <div className="relative">
+                    <Image
+                      src={currentImage}
+                      alt="Clothing item"
+                      width={400}
+                      height={400}
+                      className="rounded-lg"
+                    />
+                    <div className="absolute bottom-0 left-[40%] transform -translate-x-1/2 flex space-x-4 mb-4">
+                      <Image
+                        src="/white_suggest.png"
+                        alt="White Suggest"
+                        width={100}
+                        height={100}
+                        className="rounded-lg cursor-pointer"
+                        onClick={() => handleImageClick('/white_tshirt_render.png')}
+                      />
+                      <Image
+                        src="/black_suggest.png"
+                        alt="Black Suggest"
+                        width={100}
+                        height={100}
+                        className="rounded-lg cursor-pointer"
+                        onClick={() => handleImageClick('/black_tshirt_render.png')}
+                      />
+                      <Image
+                        src="/red_suggest.png"
+                        alt="Red Suggest"
+                        width={100}
+                        height={100}
+                        className="rounded-lg cursor-pointer"
+                        onClick={() => handleImageClick('/red_tshirt_render.png')}
+                      />
+                    </div>
                   </div>
                 )}
               </div>
 
               {/* Size Bar */}
               {activeSection === 'sizeRecommendations' && (
-                <div className="flex flex-col items-center mt-4 w-full">
-                  <div className="size-bar flex justify-center space-x-2 mt-4">
+                <div className="flex flex-col items-center mt-4 w-full absolute bottom-[10%] right-[5%]">
+                  <div className="size-bar flex justify-center space-x-4 mt-6"> {/* Increased space-x-4 for more padding */}
                     {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
                       <span
                         key={size}
@@ -146,13 +170,13 @@ export default function SuggestPage() {
                         }}
                         tabIndex={0}
                         role="button"
-                        className={`w-10 h-10 flex items-center justify-center rounded-full text-sm cursor-pointer ${
+                        className={`w-14 h-14 flex items-center justify-center rounded-full text-sm cursor-pointer ${
                           selectedSize === size
                             ? selectedSize === 'M'
                               ? 'bg-teal-400 shine'
                               : 'bg-orange-700'
                             : 'bg-gray-700'
-                        }`}
+                        } ${size === 'M' ? 'font-bold' : ''}`} // Add font-bold class for size M
                       >
                         {size}
                       </span>

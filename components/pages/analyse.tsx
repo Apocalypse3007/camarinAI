@@ -27,7 +27,7 @@ export default function AnalysePage() {
       </div>
       <style jsx>{`
         .frosted-glass {
-          background: rgba(255, 255, 255, 0.1);
+          background: linear-gradient( rgba(41, 41, 41, 0.5) 1.98%, rgba(22, 22, 22, 1) 100.42%);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
           border: 1px solid rgba(255, 255, 255, 0.18);

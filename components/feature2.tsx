@@ -65,7 +65,7 @@ const FeatureBox = ({
   children,
 }: FeatureBoxProps) => (
   <div
-    className={`absolute w-2/5 h-72 bg-opacity-80 backdrop-blur-md cursor-pointer transition-all duration-300 p-6 pr-24 overflow-visible rounded-3xl ${position} ${
+    className={`absolute w-2/5 h-72 bg-opacity-80 backdrop-blur-md cursor-pointer transition-all duration-300 p-6 pr-24 overflow-visible rounded-3xl border-2 border-stone-500 border-b-black ${position} ${
       isActive ? 'scale-105' : 'opacity-50'
     }`}
     onClick={onClick}
@@ -74,15 +74,19 @@ const FeatureBox = ({
       zIndex: 20,
       margin: '4px',
       transform: isInactive ? 'translateX(-8px)' : 'none',
-      boxShadow: isInactive
-        ? '0 0 0 2px rgba(63, 63, 70, 1), 0 0 0 4px rgba(39, 39, 42, 1)'
-        : 'none',
+      // Removed boxShadow as it's no longer needed
     }}
   >
     {/* Text Content Container */}
     <div className="text-container w-full max-w-[70%]">
       <h3 className={`text-3xl mb-2 ${isInactive ? 'text-gray-500' : 'text-white'}`}>{title}</h3>
-      <p className={`text-xl tracking-[0.1em] py-2 ${isInactive ? 'text-gray-500' : 'text-emerald-300'}`}>{caption}</p>
+      <p
+        className={`text-xl tracking-[0.1em] py-2 ${
+          isInactive ? 'text-gray-500' : 'text-emerald-300'
+        }`}
+      >
+        {caption}
+      </p>
       <p className={`text-lg ${isInactive ? 'text-gray-500' : 'text-gray-300'}`}>{description}</p>
     </div>
     {children}
@@ -305,8 +309,8 @@ export default function VirtualTryOn() {
                     height={250}
                     className="object-contain cursor-pointer absolute transition-transform duration-300 transform hover:scale-105"
                     style={{
-                      right: '-170px',
-                      top: '-170px',
+                      right: '-150px',
+                      top: '-200px',
                       zIndex: 30,
                     }}
                     onClick={handleRedTshirtClick}
@@ -324,8 +328,8 @@ export default function VirtualTryOn() {
                     height={250}
                     className="object-contain cursor-pointer absolute transition-transform duration-300 transform hover:scale-105"
                     style={{
-                      right: '-150px',
-                      top: '-170px',
+                      right: '-160px',
+                      top: '-220px',
                       zIndex: 30,
                     }}
                     onClick={handleBlackShortClick}

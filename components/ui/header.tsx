@@ -9,11 +9,11 @@ export default function Header() {
           {/* Logo Section */}
           <div className="text-center">
             <Image
-              src="/camarin.svg" // Adjusted path to reference the public directory
+              src="/camarin.svg" 
               alt="Camarin Logo"
               className="mt-2 w-32 h-auto mx-auto"
-              width={128} // Adjust width as needed
-              height={128} // Adjust height as needed
+              width={128}
+              height={128} 
               aria-label="Camarin Logo"
             />
           </div>
@@ -32,10 +32,11 @@ export default function Header() {
           </nav>
 
           {/* Contact Button */}
-          <div className="pr-8">
-            <button className="highlight-button px-6 py-3 bg-gradient-to-r from-neutral-700 to-zinc-900 rounded-full text-sm shadow-md hover:shadow-lg transition duration-200">
-              <div className="text-lg">Contact us &gt;</div>
-            </button>
+          <div className="pr-6">
+            <div className=''/> 
+            <button className="relative inline-block  px-6 py-3 bg-gradient-to-r from-neutral-700 to-zinc-900 rounded-full shadow-[inset_0_0_0_2px_transparent,0_0_10px_2px_rgba(255,255,255,0.5)] transition-shadow duration-300 ease-in-out hover:shadow-[inset_0_0_0_2px_transparent,0_0_10px_2px_rgba(255,255,255,1)]">
+            Contact Us &gt;
+          </button>
           </div>
       </div>
       </div>  

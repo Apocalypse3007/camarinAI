@@ -34,9 +34,9 @@ export default function Header() {
 
           {/* Contact Button */}
           <div className="pr-8">
-            <button className="highlight-button px-6 py-3 bg-gradient-to-r from-neutral-700 to-zinc-900 rounded-full text-sm shadow-md hover:shadow-lg transition duration-200">
-              <div className="text-lg">Contact us &gt;</div>
-            </button>
+          <button className="relative inline-block px-6 py-3 bg-gradient-to-r from-neutral-700 to-zinc-900 rounded-full shadow-[inset_0_0_0_2px_transparent,0_0_10px_2px_rgba(255,255,255,0.5)] transition-shadow duration-300 ease-in-out hover:shadow-[inset_0_0_0_2px_transparent,0_0_10px_2px_rgba(255,255,255,1)]">
+            Contact Us &gt;
+          </button>
           </div>
         </div>
       </div>
