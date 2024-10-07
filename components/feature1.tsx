@@ -1,32 +1,37 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import ScanPage from './pages/scan';
 import AnalysePage from './pages/analyse';
 import SuggestPage from './pages/suggest';
 import Header from './ui/header';
 
 export default function Feature1() {
-  const [activePage, setActivePage] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const pages = [
     { component: ScanPage, title: "Scan" },
     { component: AnalysePage, title: "Analyse" },
-    { component: SuggestPage, title: "Suggest" }
+    { component: SuggestPage, title: "Suggest" },
   ];
 
   useEffect(() => {
+    const container = containerRef.current;
+
     const handleScroll = () => {
-      if (containerRef.current) {
-        const scrollTop = containerRef.current.scrollTop;
+      if (container) {
+        const scrollTop = container.scrollTop;
         const pageHeight = window.innerHeight;
-        const newActivePage = Math.round(scrollTop / pageHeight);
-        setActivePage(newActivePage);
+        const newIndex = Math.min(
+          Math.floor(scrollTop / pageHeight),
+          pages.length - 1
+        );
+        setCurrentIndex(newIndex);
       }
     };
 
-    const container = containerRef.current;
     if (container) {
       container.addEventListener('scroll', handleScroll);
     }
@@ -35,7 +40,7 @@ export default function Feature1() {
         container.removeEventListener('scroll', handleScroll);
       }
     };
-  }, []);
+  }, [pages.length]);
 
   const handlePageChange = (index: number) => {
     if (containerRef.current) {
@@ -47,12 +52,32 @@ export default function Feature1() {
   };
 
   return (
-    <div className="h-screen flex flex-col text-white overflow-hidden" style={{ backgroundColor: '#161616' }}>
+    <div className="h-screen flex flex-col text-white" style={{ backgroundColor: '#161616' }}>
       <Header />
-      <div ref={containerRef} className="flex-1 overflow-y-scroll snap-y snap-mandatory custom-scrollbar">
+      <div ref={containerRef} className="flex-1 overflow-y-scroll custom-scrollbar">
         {pages.map((page, index) => (
-          <div key={index} className="h-screen snap-start">
-            <page.component />
+          <div
+            key={index}
+            className="min-h-screen flex items-center justify-center"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 50, rotate: -10 }}
+              animate={{
+                opacity: index <= currentIndex ? 1 : 0.5,
+                y: 0,
+                rotate: 0,
+              }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              style={{
+                transform: `perspective(1000px) rotateX(${
+                  index < currentIndex ? -30 : 0
+                }deg) translateZ(${index < currentIndex ? -100 : 0}px)`,
+                opacity: index < currentIndex ? 0.5 : 1,
+                transition: 'transform 0.5s ease-out, opacity 0.5s ease-out',
+              }}
+            >
+              <page.component />
+            </motion.div>
           </div>
         ))}
       </div>
@@ -61,14 +86,22 @@ export default function Feature1() {
           <button
             key={index}
             onClick={() => handlePageChange(index)}
-            className={`mx-2 px-4 py-2 rounded-full ${activePage === index ? 'bg-white text-black' : 'bg-gray-500'}`}
+            className={`mx-2 px-4 py-2 rounded-full ${
+              currentIndex === index ? 'bg-white text-black' : 'bg-gray-500'
+            }`}
           >
             {page.title}
           </button>
         ))}
       </div>
 
+      {/* Implementing the custom scrollbar */}
       <style jsx>{`
+        .custom-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: #161616 transparent;
+        }
+
         .custom-scrollbar::-webkit-scrollbar {
           width: 8px;
         }

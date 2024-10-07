@@ -104,13 +104,27 @@ export default function SuggestPage() {
 
                 {/* Render suggest2text.png when the section is materialDetails */}
                 {activeSection === 'materialDetails' && (
-                  <div className="ml-4">
+                  <div className="relative ml-4">
+                    <div
+                      className="absolute bg-gradient-to-r from-cyan-400 to-transparent opacity-20 blur-2xl"
+                      style={{
+                        width: '100%',
+                        height: '40%',
+                        top: '30%', 
+                        left: '1%', 
+                        zIndex: 19, // Lower zIndex to ensure it is behind the image
+                      }}
+                    />
                     <Image
                       src="/suggest2text.png"
                       alt="Additional background"
                       width={500}
                       height={450}
                       className="background-image"
+                      style={{
+                        position: 'relative', // Ensure the image respects the zIndex stacking context
+                        zIndex: 100, // Higher zIndex to ensure it is in front of the blur
+                      }}
                     />
                   </div>
                 )}

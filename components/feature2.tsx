@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import * as THREE from 'three'; // Import THREE for color manipulation
+import * as THREE from 'three'; 
 import Image from 'next/image';
 import Header2 from './ui/header2';
 
@@ -32,29 +32,39 @@ const FeatureBox = ({
   children,
 }: FeatureBoxProps) => (
   <div
-    className={`absolute w-2/5 h-72 bg-opacity-80 backdrop-blur-md cursor-pointer transition-all duration-300 p-6 pr-24 overflow-visible rounded-3xl border-2 border-stone-500 border-b-black ${position} ${
-      isActive ? 'scale-105' : 'opacity-50'
+    className={`absolute w-[38%] h-[48%] bg-opacity-80 backdrop-blur-md cursor-pointer transition-all duration-300 p-6 pr-24 overflow-visible rounded-3xl border-2 border-stone-500 border-b-black ${position} ${
+      isActive ? 'scale-105' : 'opacity-30'
     }`}
     onClick={onClick}
     style={{
       background: isInactive ? '#161616' : gradient,
       zIndex: 20,
-      margin: '4px',
+      margin: '6px', // Adjust the margin to move the boxes towards the center
       transform: isInactive ? 'translateX(-8px)' : 'none',
-      // Removed boxShadow as it's no longer needed
+      backdropFilter: 'blur(10px)',
     }}
   >
+    {/* Gradient Overlay */}
+    {isActive && (
+      <div
+        className="absolute inset-0 rounded-3xl"
+        style={{
+          background: 'linear-gradient( rgba(16,185,129,0.1) 0%, rgba(6,182,212,0.3) 100%)',
+          zIndex: -1,
+        }}
+      />
+    )}
     {/* Text Content Container */}
     <div className="text-container w-full max-w-[70%]">
-      <h3 className={`text-3xl mb-2 ${isInactive ? 'text-gray-500' : 'text-white'}`}>{title}</h3>
+      <h3 className={`text-3xl mb-2 ${isInactive ? 'text-gray-500' : 'text-gray-300'}`}>{title}</h3>
       <p
         className={`text-xl tracking-[0.1em] py-2 ${
-          isInactive ? 'text-gray-500' : 'text-emerald-300'
+          isInactive ? 'text-gray-600' : 'text-emerald-300'
         }`}
       >
         {caption}
       </p>
-      <p className={`text-lg ${isInactive ? 'text-gray-500' : 'text-gray-300'}`}>{description}</p>
+      <p className={`text-md ${isInactive ? 'text-gray-700' : 'text-gray-300'}`}>{description}</p>
     </div>
     {children}
   </div>
@@ -70,12 +80,16 @@ const FitLabel = ({
   position: string;
   className?: string;
 }) => (
-  <div
-    className={`absolute ${position} text-white text-lg px-5 py-2 rounded-3xl z-30 bg-gradient-to-r from-[rgba(38,38,38,0.3] to-[rgba(24,24,27,0.3)] backdrop-blur-lg ${className || ''}`}
-  >
-    {text}
+  <div className={`absolute ${position} z-30 ${className || ''}`}>
+    <div className="p-[2px] rounded-3xl bg-gradient-to-r from-[#7777] to-[#7777]">
+      <div className="text-white text-lg px-5 py-2 rounded-3xl bg-gradient-to-r from-[rgba(38,38,38,0.3)] to-[rgba(24,24,27,0.3)] backdrop-blur-lg backdrop-filter backdrop-blur-md bg-opacity-30">
+        {text}
+      </div>
+    </div>
   </div>
 );
+
+export { FitLabel };
 // Main Component
 export default function VirtualTryOn() {
   const [activeFeature, setActiveFeature] = useState<number | null>(null);
@@ -96,10 +110,10 @@ export default function VirtualTryOn() {
     } else if (selectedTop === 'red' && selectedBottom === 'green') {
       triggerImageChange('/page3_image2.png');
       setAvatarOutfit('red');
-    } else if (selectedTop === null && selectedBottom === 'black') {
+    } else if (selectedTop === 'white' && selectedBottom === 'black') {
       triggerImageChange('/page3_image3.png');
       setAvatarOutfit('black');
-    } else if (selectedTop === null && selectedBottom === 'green') {
+    } else if (selectedTop === 'white' && selectedBottom === 'green') {
       triggerImageChange('/page3_image1.png');
       setAvatarOutfit('green');
     } else if (selectedTop === 'red' && selectedBottom === null) {
@@ -140,8 +154,11 @@ export default function VirtualTryOn() {
     }
   })();
 
+  // Derive topImage from selectedTop
+  const topImage = selectedTop === 'red' ? '/white_tshirt.png' : '/red_tshirt.png';
+
   // Fixed container dimensions
-  const containerWidth = 450; // Adjust as needed
+  const containerWidth = 550; // Adjust as needed
   const containerHeight = 700; // Adjust as needed
 
   const features = [
@@ -190,8 +207,8 @@ export default function VirtualTryOn() {
 
   const handleRedTshirtClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent triggering the FeatureBox onClick
-    setSelectedTop((prev) => (prev === 'red' ? null : 'red'));
-    // Toggling top selection: clicking again deselects the top
+    setSelectedTop((prev) => (prev === 'red' ? 'white' : 'red'));
+    // Toggling top selection: clicking again swaps to white t-shirt
   };
 
   const handleBlackShortClick = (e: React.MouseEvent) => {
@@ -230,13 +247,24 @@ export default function VirtualTryOn() {
                 backgroundColor: 'transparent', // Ensure the background is transparent
               }}
             >
+              <div
+                className="absolute bg-gradient-to-r from-cyan-400 to-transparent opacity-20 blur-2xl"
+                style={{
+                  width: '100%',
+                  height: '40%',
+                  top: '30%', 
+                  left: '15%', 
+                  zIndex: 19, 
+                }}
+              />
+
               {/* Previous Image for Fade-Out */}
               {prevImage && (
                 <Image
                   src={prevImage}
                   alt="Previous Outfit"
                   fill
-                  style={{ objectFit: 'contain', zIndex: 10 }}
+                  style={{ objectFit: 'contain', zIndex: 10, width: '100%', height: '100%' }}
                   className="object-contain absolute transition-opacity duration-500 opacity-0"
                 />
               )}
@@ -246,7 +274,7 @@ export default function VirtualTryOn() {
                 src={imageSrc}
                 alt="Outfit"
                 fill
-                style={{ objectFit: 'contain', zIndex: 20 }}
+                style={{ objectFit: 'contain', zIndex: 20, width: '100%', height: '100%' }}
                 className={`object-contain absolute transition-opacity duration-500 ${
                   isTransitioning ? 'opacity-0' : 'opacity-100'
                 }`}
@@ -269,9 +297,19 @@ export default function VirtualTryOn() {
             >
               {index === 1 && activeFeature === index && (
                 <div className="relative">
+                  <div
+                    className="absolute bg-gradient-to-r from-cyan-400 to-transparent opacity-20 blur-2xl"
+                    style={{
+                      width: '100%',
+                      height: '40%',
+                      top: '30%', 
+                      left: '15%', 
+                      zIndex: 19, 
+                    }}
+                  />
                   <Image
-                    src="/red_tshirt.png"
-                    alt="Red T-Shirt"
+                    src={topImage}
+                    alt={selectedTop === 'red' ? 'Red T-Shirt' : 'White T-Shirt'}
                     width={200}
                     height={250}
                     className="object-contain cursor-pointer absolute transition-transform duration-300 transform hover:scale-105"
@@ -282,28 +320,52 @@ export default function VirtualTryOn() {
                     }}
                     onClick={handleRedTshirtClick}
                   />
-                </div>
-              )}
-              {index === 3 && activeFeature === index && (
-                <div className="relative">
-                  <Image
-                    src={shortsImage}
-                    alt={
-                      selectedBottom === 'black' ? 'Black Shorts' : 'Green Shorts'
-                    }
-                    width={200}
-                    height={250}
-                    className="object-contain cursor-pointer absolute transition-transform duration-300 transform hover:scale-105"
+                  <div
+                    className="absolute w-full h-full bg-cyan-300 opacity-50 blur-lg"
                     style={{
-                      right: '-160px',
-                      top: '-220px',
-                      zIndex: 30,
+                      right: '-170px',
+                      top: '-200px',
+                      zIndex: 29,
                     }}
-                    onClick={handleBlackShortClick}
                   />
                 </div>
               )}
-            </FeatureBox>
+              {index === 3 && activeFeature === index && (
+                  <div className="relative">
+                    <div
+                      className="absolute bg-gradient-to-r from-cyan-400 to-transparent opacity-80 blur-2xl"
+                      style={{
+                        width: '100%',
+                        height: '40%',
+                        top: '100%', 
+                        left: '75%', 
+                        zIndex: 19, 
+                      }}
+                    />
+                    <Image
+                      src={shortsImage}
+                      alt={selectedBottom === 'black' ? 'Black Shorts' : 'Green Shorts'}
+                      width={200}
+                      height={250}
+                      className="object-contain cursor-pointer absolute transition-transform duration-300 transform hover:scale-105"
+                      style={{
+                        right: '-160px',
+                        top: '-220px',
+                        zIndex: 30,
+                      }}
+                      onClick={handleBlackShortClick}
+                    />
+                    <div
+                      className="absolute w-full h-full bg-cyan-300 opacity-50 blur-lg"
+                      style={{
+                        right: '-160px',
+                        top: '-220px',
+                        zIndex: 29,
+                      }}
+                    />
+                  </div>
+                )}
+            </FeatureBox> 
           ))}
 
           {/* Fit Labels for the First Feature */}
@@ -311,7 +373,7 @@ export default function VirtualTryOn() {
             <>
               <FitLabel
                 text={<><span className="text-teal-400">Good fit</span> around the chest ✅</>}
-                position="top-[25%] right-[31.5%]"
+                position="top-[18%] right-[31.5%]"
               />
               <FitLabel
                 text={<><span className="text-teal-400">Good fit</span> around the waist ✅</>}
