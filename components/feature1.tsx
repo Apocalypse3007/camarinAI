@@ -7,7 +7,11 @@ import AnalysePage from './pages/analyse';
 import SuggestPage from './pages/suggest';
 import Header from './ui/header';
 
-export default function Feature1() {
+interface Feature1Props {
+  onContactClick: () => void;
+}
+
+export default function Feature1({ onContactClick }: Feature1Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -53,6 +57,7 @@ export default function Feature1() {
 
   return (
     <div className="h-screen flex flex-col text-white" style={{ backgroundColor: '#161616' }}>
+      {/* Pass the onContactClick prop to Header */}
       <Header />
       <div ref={containerRef} className="flex-1 overflow-y-scroll custom-scrollbar">
         {pages.map((page, index) => (
