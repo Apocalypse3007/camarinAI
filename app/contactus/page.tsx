@@ -1,5 +1,6 @@
+"use client";
 // Import necessary modules and types
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState, FormEvent } from "react";
 import { Mail, MessageSquare, User } from "lucide-react";
 
 // Button Component
@@ -86,19 +87,25 @@ function Select({
   options,
   className = "",
   placeholder,
+  value,
+  onChange,
   ...props
 }: {
   options: { value: string; label: string }[];
   className?: string;
   placeholder?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   [key: string]: any;
 }) {
   return (
     <select
+      value={value}
+      onChange={onChange}
       className={`w-full px-3 py-2 bg-[#161616] text-white rounded ${className}`}
       {...props}
     >
-      <option value="" disabled selected>
+      <option value="" disabled>
         {placeholder}
       </option>
       {options.map((option) => (
@@ -116,6 +123,40 @@ function Select({
 
 // Main ContactUs Component
 export default function ContactUs() {
+  // State variables to hold form data
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [companyEmail, setCompanyEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+
+  // Handle form submission
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const emailTo = "contactus@camarin.ai"; // Recipient email address
+    const subjectLine = `Contact Us: ${subject || "No Subject"}`;
+
+    // Construct the email body with name and message
+    const emailBody = `
+Name: ${firstName} ${lastName}
+Email: ${companyEmail}
+
+Message:
+${message}
+    `;
+
+    // Construct the Gmail compose URL
+    const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+      emailTo
+    )}&su=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(
+      emailBody
+    )}`;
+
+    // Redirect to the Gmail compose URL
+    window.open(gmailComposeUrl, "_blank");
+  };
+
   return (
     <div className="min-h-screen bg-[#161616] text-white py-12">
       <div className="container px-4 mx-auto">
@@ -134,13 +175,17 @@ export default function ContactUs() {
               Talk to our team about your enterprise needs.
             </p>
 
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm text-gray-400">First Name</label>
                   <Input
                     placeholder="John"
                     className="mt-1"
+                    value={firstName}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setFirstName(e.target.value)
+                    }
                   />
                 </div>
                 <div>
@@ -148,6 +193,10 @@ export default function ContactUs() {
                   <Input
                     placeholder="Doe"
                     className="mt-1"
+                    value={lastName}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setLastName(e.target.value)
+                    }
                   />
                 </div>
               </div>
@@ -157,6 +206,10 @@ export default function ContactUs() {
                   type="email"
                   placeholder="johndoe@gmail.com"
                   className="mt-1"
+                  value={companyEmail}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setCompanyEmail(e.target.value)
+                  }
                 />
               </div>
 
@@ -166,11 +219,13 @@ export default function ContactUs() {
                   className="mt-1 w-full"
                   placeholder="Pick a subject..."
                   options={[
-                    { value: "sales", label: "Sales Inquiry" },
-                    { value: "support", label: "Support" },
-                    { value: "billing", label: "Billing" },
-                    { value: "other", label: "Other" },
+                    { value: "Sales Inquiry", label: "Sales Inquiry" },
+                    { value: "Support", label: "Support" },
+                    { value: "Billing", label: "Billing" },
+                    { value: "Other", label: "Other" },
                   ]}
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
                 />
               </div>
 
@@ -181,9 +236,16 @@ export default function ContactUs() {
                 <Textarea
                   placeholder="Tell us more about your enterprise needs."
                   className="mt-1 min-h-[100px]"
+                  value={message}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                    setMessage(e.target.value)
+                  }
                 />
               </div>
-              <Button className="w-full bg-white text-black hover:bg-gray-100">
+              <Button
+                type="submit"
+                className="w-full bg-white text-black hover:bg-gray-100"
+              >
                 Contact Us
               </Button>
             </form>
