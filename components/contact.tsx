@@ -25,7 +25,7 @@ function Button({
 
     return (
         <button
-            className={`px-4 py-2 rounded ${variantClass} ${className}`}
+            className={`relative inline-block px-6 py-3 bg-gradient-to-r from-neutral-700 to-zinc-900 rounded-full shadow-[inset_0_0_0_2px_transparent,0_0_10px_2px_rgba(255,255,255,0.5)] transition-shadow duration-300 ease-in-out hover:shadow-[inset_0_0_0_2px_transparent,0_0_10px_2px_rgba(255,255,255,1)] ${variantClass} ${className}`}
             {...props}
         >
             {children}
@@ -44,7 +44,7 @@ function Card({
     [key: string]: any;
 }) {
     return (
-        <div className={`rounded ${className}`} {...props}>
+        <div className={`rounded-2xl border-[1px] border-[#57534e] ${className}`} {...props}>
             {children}
         </div>
     );
@@ -130,6 +130,9 @@ export default function Contactus() {
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
 
+    // Gradient Percentage (Adjust this value to change the gradient coverage)
+    const gradientPercentage = 25; // Percentage of the gradient (e.g., 25%)
+
     // Handle form submission
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -166,95 +169,110 @@ ${message}
 
                 <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
                     {/* Contact Sales Form */}
-                    <Card className="p-6 bg-[#27272a] border-0">
-                        <div className="flex items-center gap-2 mb-4">
-                            <Mail className="w-5 h-5" />
-                            <h2 className="text-2xl font-semibold">Contact Us</h2>
+                    <Card
+                        className="p-6 border-0 relative overflow-hidden"
+                        style={{
+                            backgroundImage: `radial-gradient(circle at top left, #042f2e, transparent 50%)`,
+                        }}
+                    >
+                        {/* Optional: Overlay to enhance text readability */}
+                        <div className="absolute inset-0 bg-transparent"></div>
+
+                        <div className="relative z-10">
+                            <div className="flex items-center gap-2 mb-4">
+                                <Mail className="w-5 h-5" />
+                                <h2 className="text-2xl font-semibold">Contact Us</h2>
+                            </div>
+                            <p className="text-gray-400 mb-6">
+                                Talk to our team about your enterprise needs.
+                            </p>
+
+                            <form className="space-y-4" onSubmit={handleSubmit}>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="text-sm text-gray-400">First Name</label>
+                                        <Input
+                                            placeholder="John"
+                                            className="mt-1"
+                                            value={firstName}
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                                setFirstName(e.target.value)
+                                            }
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-sm text-gray-400">Last Name</label>
+                                        <Input
+                                            placeholder="Doe"
+                                            className="mt-1"
+                                            value={lastName}
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                                setLastName(e.target.value)
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="text-sm text-gray-400">Company Email</label>
+                                    <Input
+                                        type="email"
+                                        placeholder="johndoe@gmail.com"
+                                        className="mt-1"
+                                        value={companyEmail}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                            setCompanyEmail(e.target.value)
+                                        }
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="text-sm text-gray-400">Subject</label>
+                                    <Select
+                                        className="mt-1 w-full"
+                                        placeholder="Pick a subject..."
+                                        options={[
+                                            { value: "Sales Inquiry", label: "Sales Inquiry" },
+                                            { value: "Support", label: "Support" },
+                                            { value: "Billing", label: "Billing" },
+                                            { value: "Other", label: "Other" },
+                                        ]}
+                                        value={subject}
+                                        onChange={(e) => setSubject(e.target.value)}
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="text-sm text-gray-400">
+                                        How can we help?
+                                    </label>
+                                    <Textarea
+                                        placeholder="Tell us more about your enterprise needs."
+                                        className="mt-1 min-h-[100px]"
+                                        value={message}
+                                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                                            setMessage(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <Button
+                                    type="submit"
+                                    className="w-full text-white"
+                                >
+                                    Contact Us
+                                </Button>
+                            </form>
                         </div>
-                        <p className="text-gray-400 mb-6">
-                            Talk to our team about your enterprise needs.
-                        </p>
-
-                        <form className="space-y-4" onSubmit={handleSubmit}>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="text-sm text-gray-400">First Name</label>
-                                    <Input
-                                        placeholder="John"
-                                        className="mt-1"
-                                        value={firstName}
-                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                            setFirstName(e.target.value)
-                                        }
-                                    />
-                                </div>
-                                <div>
-                                    <label className="text-sm text-gray-400">Last Name</label>
-                                    <Input
-                                        placeholder="Doe"
-                                        className="mt-1"
-                                        value={lastName}
-                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                            setLastName(e.target.value)
-                                        }
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="text-sm text-gray-400">Company Email</label>
-                                <Input
-                                    type="email"
-                                    placeholder="johndoe@gmail.com"
-                                    className="mt-1"
-                                    value={companyEmail}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                        setCompanyEmail(e.target.value)
-                                    }
-                                />
-                            </div>
-
-                            <div>
-                                <label className="text-sm text-gray-400">Subject</label>
-                                <Select
-                                    className="mt-1 w-full"
-                                    placeholder="Pick a subject..."
-                                    options={[
-                                        { value: "Sales Inquiry", label: "Sales Inquiry" },
-                                        { value: "Support", label: "Support" },
-                                        { value: "Billing", label: "Billing" },
-                                        { value: "Other", label: "Other" },
-                                    ]}
-                                    value={subject}
-                                    onChange={(e) => setSubject(e.target.value)}
-                                />
-                            </div>
-
-                            <div>
-                                <label className="text-sm text-gray-400">
-                                    How can we help?
-                                </label>
-                                <Textarea
-                                    placeholder="Tell us more about your enterprise needs."
-                                    className="mt-1 min-h-[100px]"
-                                    value={message}
-                                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                                        setMessage(e.target.value)
-                                    }
-                                />
-                            </div>
-                            <Button
-                                type="submit"
-                                className="w-full bg-white text-black hover:bg-gray-100"
-                            >
-                                Contact Us
-                            </Button>
-                        </form>
                     </Card>
 
                     {/* Right Column */}
                     <div className="space-y-6">
                         {/* Community Support */}
-                        <Card className="p-6 bg-[#27272a] border-0">
+                        <Card
+                            className="p-6 bg-[#161616] border-0"
+                            style={{
+                                backgroundImage: `radial-gradient(circle at top left, #042f2e, transparent 50%)`,
+                            }}
+                        >
                             <div className="flex items-center gap-2 mb-4">
                                 <MessageSquare className="w-5 h-5" />
                                 <h2 className="text-2xl font-semibold">Have a Doubt?</h2>
@@ -269,7 +287,12 @@ ${message}
                         </Card>
 
                         {/* Account Support */}
-                        <Card className="p-6 bg-[#27272a] border-0">
+                        <Card 
+                            className="p-6 bg-[#161616] border-0"
+                            style={{
+                                backgroundImage: `radial-gradient(circle at top left, #042f2e, transparent 50%)`,
+                            }}
+                        >
                             <div className="flex items-center gap-2 mb-4">
                                 <User className="w-5 h-10" />
                                 <h2 className="text-2xl font-semibold">Pricing Plans</h2>
@@ -285,6 +308,8 @@ ${message}
                     </div>
                 </div>
             </div>
+        
         </div>
-    );
-}
+        );
+
+    }
