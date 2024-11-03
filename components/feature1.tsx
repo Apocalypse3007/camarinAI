@@ -8,7 +8,7 @@ import SuggestPage from './pages/suggest';
 import Header from './ui/header';
 
 interface Feature1Props {
-  onContactClick: () => void;
+  onContactClick: () => void; // Receive the contact click handler as a prop
 }
 
 export default function Feature1({ onContactClick }: Feature1Props) {
@@ -57,8 +57,8 @@ export default function Feature1({ onContactClick }: Feature1Props) {
 
   return (
     <div className="h-screen flex flex-col text-white" style={{ backgroundColor: '#161616' }}>
-      {/* Pass the onContactClick prop to Header */}
-      <Header />
+      {/* Pass the onContactClick prop to the Header */}
+      <Header onContactClick={onContactClick} />
       <div ref={containerRef} className="flex-1 overflow-y-scroll custom-scrollbar">
         {pages.map((page, index) => (
           <div

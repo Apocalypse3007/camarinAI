@@ -53,7 +53,11 @@ const allProductImages = [
   ],
 ];
 
-export default function InteractiveStyleRecommendations() {
+interface Feature4Props {
+  onContactClick: () => void; // Receive the contact click handler as a prop
+}
+
+export default function InteractiveStyleRecommendations({ onContactClick }: Feature4Props) {
   // State variables
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const [currentProductSet, setCurrentProductSet] = useState(0);
@@ -133,7 +137,7 @@ export default function InteractiveStyleRecommendations() {
       className="min-h-screen bg-[#161616] text-white flex flex-col"
     >
       {/* Header Component at the Top */}
-      <Header />
+      <Header onContactClick={onContactClick}/>
 
       {/* Main Content */}
       <main className="flex-grow flex flex-col items-center justify-center px-4 py-6 text-center">

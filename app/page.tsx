@@ -6,6 +6,7 @@ import Feature1 from '@components/feature1';
 import Feature2 from '@components/feature2';
 import Feature3 from '@components/feature3';
 import Feature4 from '@components/feature4';
+import ContactUs from '@components/contact';
 
 
 const Page = () => {
@@ -27,13 +28,16 @@ const Page = () => {
           <Feature1 onContactClick={handleContactClick} />
         </section>
         <section className="min-h-screen snap-start overflow-hidden">
-          <Feature2/>
+          <Feature2 onContactClick={handleContactClick}/>
         </section>
         <section className="min-h-screen snap-start overflow-hidden">
-          <Feature3 />
+          <Feature3 onContactClick={handleContactClick}/>
         </section>
         <section className="min-h-screen snap-start overflow-hidden">
-          <Feature4 />
+          <Feature4 onContactClick={handleContactClick}/>
+        </section>
+        <section className="min-h-screen snap-start overflow-hidden" ref={contactRef}>
+          <ContactUs />
         </section>
         <style jsx>{`
           .custom-scrollbar::-webkit-scrollbar {

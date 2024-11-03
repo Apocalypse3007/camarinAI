@@ -5,7 +5,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three'; 
 import Image from 'next/image';
-import Header2 from './ui/header2';
+import Header from './ui/header';
 
 // Feature Box Component
 type FeatureBoxProps = {
@@ -90,8 +90,12 @@ const FitLabel = ({
 );
 
 export { FitLabel };
+
+interface Feature2Props {
+  onContactClick: () => void; // Receive the contact click handler as a prop
+}
 // Main Component
-export default function VirtualTryOn() {
+export default function VirtualTryOn({ onContactClick }: Feature2Props) {
   const [activeFeature, setActiveFeature] = useState<number | null>(null);
   const [selectedTop, setSelectedTop] = useState<string | null>(null);
   const [selectedBottom, setSelectedBottom] = useState<string | null>('green'); // Initialized to 'green'
@@ -220,7 +224,7 @@ export default function VirtualTryOn() {
 
   return (
     <div className="min-h-screen w-full bg-[#161616] text-white">
-      <Header2 />
+      <Header onContactClick={onContactClick} />
       <main className="relative h-screen w-full flex flex-col items-center justify-center p-8">
         <div className="text-center mb-8">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-6 text-center">

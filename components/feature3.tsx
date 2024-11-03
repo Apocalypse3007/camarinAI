@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useRef } from "react";
-import Header from "./ui/header2";
+import Header from "./ui/header";
 
-
-export default function Component() {
+interface Feature3Props {
+  onContactClick: () => void; // Receive the contact click handler as a prop
+}
+export default function Component({ onContactClick }: Feature3Props): JSX.Element {
   const [rotation, setRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -73,12 +75,12 @@ export default function Component() {
 
   // Disc size and embed size variables
   const discSize = 1000; // Disc diameter in pixels
-  const embedSize = 200; // Increased embed size
+  const embedSize = 215; // Increased embed size
   const embedPosition = (discSize - embedSize) / 2; // Centering calculation
 
   return (
     <div className="min-h-screen bg-[#161616] text-white relative">
-      <Header/>
+      <Header onContactClick={onContactClick}/>
 
       <main className="container mx-auto px-4 py-16 text-center relative">
       <div className="inline-flex items-center justify-center mb-4">
@@ -96,7 +98,7 @@ export default function Component() {
         <div
           className="absolute cursor-grab active:cursor-grabbing"
           style={{
-            top: "480px",
+            top: "470px",
             left: "50%",
             transform: "translate(-50%, 0)",
             zIndex: 20,
