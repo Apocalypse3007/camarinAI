@@ -104,19 +104,19 @@ export default function VirtualTryOn({ onContactClick }: Feature2Props) {
   const [prevImage, setPrevImage] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const triggerImageChange = useCallback((newSrc: string) => {
-      if (newSrc === imageSrc) return; // No change needed
-
-      setPrevImage(imageSrc); // Set the previous image for fade-out
+    if (newSrc === imageSrc) return; // No change needed
+  
+    setPrevImage(imageSrc); // Set the previous image for fade-out
     setImageSrc(newSrc); // Update to the new image
     setIsTransitioning(true); // Start transition
-
+  
     // After transition duration, remove the previous image
     setTimeout(() => {
       setPrevImage(null);
       setIsTransitioning(false);
     }, 500); // Adjust the duration to match your CSS transition
   }, [imageSrc]);
-
+  
   useEffect(() => {
     // Determine the new image and outfit based on selections
     if (selectedTop === 'red' && selectedBottom === 'black') {
@@ -139,6 +139,8 @@ export default function VirtualTryOn({ onContactClick }: Feature2Props) {
       setAvatarOutfit('default');
     }
   }, [selectedTop, selectedBottom, triggerImageChange]);
+  
+  
 
   // Derive shortsImage from imageSrc
   const shortsImage = (() => {

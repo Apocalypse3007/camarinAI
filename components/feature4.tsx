@@ -219,7 +219,6 @@ export default function InteractiveStyleRecommendations({ onContactClick }: Feat
                         Find similar aesthetics ✅
                       </span>
                     }
-                    position={''}
                   />
                 </div>
 
@@ -243,7 +242,6 @@ export default function InteractiveStyleRecommendations({ onContactClick }: Feat
                         Find similar colour palettes ✅
                       </span>
                     }
-                    position={''}
                   />
                 </div>
 
@@ -267,7 +265,6 @@ export default function InteractiveStyleRecommendations({ onContactClick }: Feat
                         Find similar products ✅
                       </span>
                     }
-                    position={''}
                   />
                 </div>
               </>

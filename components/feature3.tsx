@@ -181,10 +181,11 @@ export default function Component({ onContactClick }: Feature3Props): JSX.Elemen
             Improved Discovery and Customer Experience
           </p>
           <p className="mb-12 relative">
-            By digitizing your store's catalogue, we boost customer engagement,
-            satisfaction, and product discovery, ensuring your customers get exactly
-            what they expect from your products.
-          </p>
+          By digitizing your store&#39;s catalogue, we boost customer engagement,
+          satisfaction, and product discovery, ensuring your customers get exactly
+          what they expect from your products.
+        </p>
+
         </div>
       </main>
       <style jsx global>{`
