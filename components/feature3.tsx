@@ -7,6 +7,9 @@ interface Feature3Props {
   onContactClick: () => void; // Receive the contact click handler as a prop
 }
 export default function Component({ onContactClick }: Feature3Props): JSX.Element {
+  const scrollToSection = (section: string) => {
+    // Implement the scrollToSection logic here
+  };
   const [rotation, setRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -77,10 +80,9 @@ export default function Component({ onContactClick }: Feature3Props): JSX.Elemen
   const discSize = 1000; // Disc diameter in pixels
   const embedSize = 215; // Increased embed size
   const embedPosition = (discSize - embedSize) / 2; // Centering calculation
-
   return (
     <div className="min-h-screen bg-[#161616] text-white relative">
-      <Header onContactClick={onContactClick}/>
+      <Header onContactClick={onContactClick} />
 
       <main className="container mx-auto px-4 py-16 text-center relative">
       <div className="inline-flex items-center justify-center mb-4">
@@ -109,7 +111,7 @@ export default function Component({ onContactClick }: Feature3Props): JSX.Elemen
           onMouseLeave={handleMouseUp}
         >
           <div
-            className="relative rounded-full bg-white"
+            className="relative rounded-full bg-zinc-50"
             style={{
               width: `${discSize}px`,
               height: `${discSize}px`,

@@ -27,7 +27,7 @@ export default function SuggestPage() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="p-[3px] rounded-3xl bg-gradient-to-r from-black to-stone-500">
-          <div className="bg-[#161616] rounded-3xl p-8 flex flex-col md:flex-row items-center min-h-[600px]">
+          <div className="bg-[#161616] rounded-3xl p-8 flex flex-col md:flex-row items-center min-h-[650px]">
             {/* Left Section */}
             <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8 fixed-width-container">
               <div className="text-xl text-neutral-400 mb-2">Step 3</div>

@@ -1,130 +1,155 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import ScanPage from './pages/scan';
 import AnalysePage from './pages/analyse';
 import SuggestPage from './pages/suggest';
 import Header from './ui/header';
 
 interface Feature1Props {
-  onContactClick: () => void; // Receive the contact click handler as a prop
+  onContactClick: () => void;
 }
 
 export default function Feature1({ onContactClick }: Feature1Props) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const pages = [
-    { component: ScanPage, title: "Scan" },
-    { component: AnalysePage, title: "Analyse" },
-    { component: SuggestPage, title: "Suggest" },
+  const PAGES = [
+    {
+      id: 0,
+      title: 'Scan',
+      component: <ScanPage />,
+    },
+    {
+      id: 1,
+      title: 'Analyse',
+      component: <AnalysePage />,
+    },
+    {
+      id: 2,
+      title: 'Suggest',
+      component: <SuggestPage />,
+    },
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false); // To prevent rapid state changes
+  const [direction, setDirection] = useState(0); // 1 for up, -1 for down
+
   useEffect(() => {
-    const container = containerRef.current;
-
-    const handleScroll = () => {
-      if (container) {
-        const scrollTop = container.scrollTop;
-        const pageHeight = window.innerHeight;
-        const newIndex = Math.min(
-          Math.floor(scrollTop / pageHeight),
-          pages.length - 1
-        );
-        setCurrentIndex(newIndex);
-      }
-    };
-
-    if (container) {
-      container.addEventListener('scroll', handleScroll);
-    }
+    // Disable body scroll when Feature1 is active
+    document.body.style.overflow = 'hidden';
     return () => {
-      if (container) {
-        container.removeEventListener('scroll', handleScroll);
-      }
+      // Re-enable body scroll on cleanup (when Feature1 unmounts)
+      document.body.style.overflow = 'auto';
     };
-  }, [pages.length]);
+  }, []);
 
-  const handlePageChange = (index: number) => {
-    if (containerRef.current) {
-      containerRef.current.scrollTo({
-        top: index * window.innerHeight,
-        behavior: 'smooth',
-      });
+  const handleDragEnd = (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => {
+    if (isAnimating) return; // Prevent state changes during animation
+
+    const threshold = 100; // Increased threshold for swipe
+
+    console.log('Drag offset y:', info.offset.y);
+
+    if (info.offset.y < -threshold && currentIndex < PAGES.length - 1) {
+      // Swipe Up
+      console.log('Swiped Up');
+      setDirection(1);
+      setIsAnimating(true);
+      setCurrentIndex((prev) => prev + 1);
+    } else if (info.offset.y > threshold && currentIndex > 0) {
+      // Swipe Down
+      console.log('Swiped Down');
+      setDirection(-1);
+      setIsAnimating(true);
+      setCurrentIndex((prev) => prev - 1);
     }
   };
 
+  const handleAnimationComplete = () => {
+    setIsAnimating(false);
+  };
+
+  const stackVariants = {
+    initial: (i: number) => ({
+      scale: 1 - i * 0.05,
+      y: i * -20,
+      zIndex: PAGES.length - i,
+      opacity: 1 - i * 0.1,
+      x: 0,
+    }),
+    animate: (i: number) => ({
+      scale: 1 - i * 0.05,
+      y: i * -20,
+      zIndex: PAGES.length - i,
+      opacity: 1 - i * 0.1,
+      x: 0,
+      transition: { duration: 0.5, ease: 'easeOut' },
+    }),
+    exitUp: {
+      opacity: 0,
+      scale: 0.9,
+      y: -50,
+      x: 0,
+      transition: { duration: 0.5, ease: 'easeIn' },
+    },
+    exitDown: {
+      opacity: 0,
+      scale: 0.9,
+      y: 50,
+      x: 0,
+      transition: { duration: 0.5, ease: 'easeIn' },
+    },
+    enterUp: {
+      opacity: 0,
+      scale: 1.05,
+      y: 50,
+      x: 0,
+    },
+    enterDown: {
+      opacity: 0,
+      scale: 1.05,
+      y: -50,
+      x: 0,
+    },
+  };
+
   return (
-    <div className="h-screen flex flex-col text-white" style={{ backgroundColor: '#161616' }}>
-      {/* Pass the onContactClick prop to the Header */}
+    <div
+      className="h-screen flex flex-col text-white"
+      style={{ backgroundColor: '#161616', overflow: 'hidden' }}
+    >
       <Header onContactClick={onContactClick} />
-      <div ref={containerRef} className="flex-1 overflow-y-scroll custom-scrollbar">
-        {pages.map((page, index) => (
-          <div
-            key={index}
-            className="min-h-screen flex items-center justify-center"
-          >
+      <div className="flex-1 flex items-center justify-center w-full relative">
+        <AnimatePresence>
+          {PAGES.slice(currentIndex, currentIndex + 3).map((page, index) => (
             <motion.div
-              initial={{ opacity: 0, y: 50, rotate: -10 }}
-              animate={{
-                opacity: index <= currentIndex ? 1 : 0.5,
-                y: 0,
-                rotate: 0,
-              }}
+              key={page.id}
+              className="absolute w-full h-full flex items-center justify-center"
+              custom={index}
+              variants={stackVariants}
+              initial={direction === 1 ? "enterUp" : direction === -1 ? "enterDown" : "initial"}
+              animate="animate"
+              exit={direction === 1 ? "exitUp" : direction === -1 ? "exitDown" : "exit"}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              style={{
-                transform: `perspective(1000px) rotateX(${
-                  index < currentIndex ? -30 : 0
-                }deg) translateZ(${index < currentIndex ? -100 : 0}px)`,
-                opacity: index < currentIndex ? 0.5 : 1,
-                transition: 'transform 0.5s ease-out, opacity 0.5s ease-out',
-              }}
+              drag={index === 0 ? "y" : false} // Only top card is draggable
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={0.2}
+              onDragEnd={index === 0 ? handleDragEnd : undefined}
+              whileDrag={
+                index === 0
+                  ? { scale: 1.05, boxShadow: '0px 10px 30px rgba(0,0,0,0.2)' }
+                  : {}
+              }
+              onAnimationComplete={index === 0 ? handleAnimationComplete : undefined}
             >
-              <page.component />
+              <div className="w-full h-full">{page.component}</div>
             </motion.div>
-          </div>
-        ))}
+          ))}
+        </AnimatePresence>
       </div>
-      <div className="flex justify-center mt-4">
-        {pages.map((page, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageChange(index)}
-            className={`mx-2 px-4 py-2 rounded-full ${
-              currentIndex === index ? 'bg-white text-black' : 'bg-gray-500'
-            }`}
-          >
-            {page.title}
-          </button>
-        ))}
-      </div>
-
-      {/* Implementing the custom scrollbar */}
-      <style jsx>{`
-        .custom-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: #161616 transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background-color: #161616;
-          border-radius: 10px;
-          border: 2px solid transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background-color: #333;
-        }
-      `}</style>
     </div>
   );
 }

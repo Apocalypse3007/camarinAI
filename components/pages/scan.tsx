@@ -1,16 +1,13 @@
 "use client";
 
 import React from 'react';
-import Image from 'next/image';
 
 export default function ScanPage() {
   return (
     <main className="h-full flex items-center justify-center text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          className="p-[3px] rounded-3xl bg-gradient-to-r from-black to-stone-500"
-        >
-          <div className="bg-[#161616] rounded-3xl p-8 flex flex-col md:flex-row items-center min-h-[400px]">
+        <div className="p-[3px] rounded-3xl bg-gradient-to-r from-black to-stone-500">
+          <div className="bg-[#161616] rounded-3xl p-8 flex flex-col md:flex-row items-center min-h-[550px]">
             <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
               <div className="text-xl text-gray-400 mb-2">Step 1</div>
               <h2 className="text-5xl mb-4">Scan</h2>
@@ -26,12 +23,10 @@ export default function ScanPage() {
             </div>
             <div className="md:w-1/2 relative ml-36">
               <div className="absolute inset-0 z-0 texture-background"></div>
-              <Image
-                src="/scan.png"
+              <img
+                src="/scan-2.png"
                 alt="Scanning process"
-                width={300}
-                height={400}
-                className="rounded-lg relative z-10"
+                className="rounded-lg relative z-10 w-[700px] h-[300px]"
               />
               <div className="absolute top-0 right-0 w-4 h-4 bg-white rounded-full"></div>
             </div>

@@ -7,7 +7,7 @@ export default function AnalysePage() {
     <main className="h-full flex items-center justify-center text-white" style={{ backgroundColor: '#161616' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="p-[3px] rounded-3xl bg-gradient-to-r from-black to-stone-500">
-          <div className="bg-[#161616] rounded-3xl p-8 flex flex-col md:flex-row items-center min-h-[400px]">
+          <div className="bg-[#161616] rounded-3xl p-8 flex flex-col md:flex-row items-center min-h-[600px]">
             <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
               <div className="text-xl text-gray-400 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-neutral-500 to-white">
                 Step 2

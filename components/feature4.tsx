@@ -137,7 +137,7 @@ export default function InteractiveStyleRecommendations({ onContactClick }: Feat
       className="min-h-screen bg-[#161616] text-white flex flex-col"
     >
       {/* Header Component at the Top */}
-      <Header onContactClick={onContactClick}/>
+      <Header onContactClick={onContactClick} />
 
       {/* Main Content */}
       <main className="flex-grow flex flex-col items-center justify-center px-4 py-6 text-center">
