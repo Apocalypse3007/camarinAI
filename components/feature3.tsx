@@ -7,9 +7,6 @@ interface Feature3Props {
   onContactClick: () => void; // Receive the contact click handler as a prop
 }
 export default function Component({ onContactClick }: Feature3Props): JSX.Element {
-  const scrollToSection = (section: string) => {
-    // Implement the scrollToSection logic here
-  };
   const [rotation, setRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -35,9 +32,6 @@ export default function Component({ onContactClick }: Feature3Props): JSX.Elemen
   const handleContactClick = () => {
     contactRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
-
-  // Define the disc objects with their angles, distances, and embeds
   const discObjects = [
     {
       angle: 0,
@@ -160,8 +154,8 @@ export default function Component({ onContactClick }: Feature3Props): JSX.Elemen
                 ></iframe>
               </div>
             ))}
+            </div>
           </div>
-        </div>
 
         
 
@@ -193,7 +187,6 @@ export default function Component({ onContactClick }: Feature3Props): JSX.Elemen
           </p>
         </div>
       </main>
-      
       <style jsx global>{`
         body,
         html {

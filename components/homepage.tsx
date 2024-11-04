@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const Homepage = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -96,13 +97,15 @@ const Homepage = () => {
                 scrollPosition > 0.5 ? 'hidden' : 'block'
               }`}
             >
-              {/* Camarin Logo */}
-              <img
+              <Image
                 src="/camarin.svg"
                 alt="Camarin Logo"
                 className="mt-2 mx-auto w-[400px] h-auto"
                 aria-label="Camarin Logo"
+                width={400}
+                height={400}
               />
+              
               {/* Subtitle */}
               <p className="text-xl mt-4">Powered by AI</p>
             </div>

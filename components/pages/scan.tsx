@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 
 export default function ScanPage() {
   return (
@@ -23,10 +24,12 @@ export default function ScanPage() {
             </div>
             <div className="md:w-1/2 relative ml-36">
               <div className="absolute inset-0 z-0 texture-background"></div>
-              <img
+              <Image
                 src="/scan-2.png"
                 alt="Scanning process"
                 className="rounded-lg relative z-10 w-[700px] h-[300px]"
+                width={700}
+                height={300}
               />
               <div className="absolute top-0 right-0 w-4 h-4 bg-white rounded-full"></div>
             </div>
@@ -41,10 +44,10 @@ export default function ScanPage() {
           border: 1px solid rgba(255, 255, 255, 0.18);
         }
         .texture-background {
-          background-image: url('/path-to-your-texture.png'); /* Replace with your texture image path */
+          background-image: url('/path-to-your-texture.png');
           background-size: cover;
           background-position: center;
-          border-radius: 0.5rem; /* Match the border radius of the image */
+          border-radius: 0.5rem;
         }
       `}</style>
     </main>

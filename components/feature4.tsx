@@ -4,16 +4,17 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Header from './ui/header'; // Importing Header component
 import FitLabel from './ui/fitlabel'; // Importing FitLabel component
-
-
+import Image from 'next/image'; // Importing Image component from next/image
 
 const phoneScreens = [
   {
     id: 1,
     content: (
-      <img
+      <Image
         src="/insta_home.png"
         alt="Instagram Home"
+        width={600}
+        height={720}
         className="w-[600px] h-[720px]"
       />
     ),
@@ -21,9 +22,11 @@ const phoneScreens = [
   {
     id: 2,
     content: (
-      <img
+      <Image
         src="/pinterest_home.png"
         alt="Pinterest Home"
+        width={600}
+        height={720}
         className="w-[600px] h-[720px]"
       />
     ),
@@ -361,13 +364,11 @@ function ProductCard({
         pointerEvents: 'none', // Allow clicks to pass through
       }}
     >
-      <img
+      <Image
         src={updatedImage}
         alt={`Product ${product.id}`}
-        style={{
-          width: `${productImageSize}px`,
-          height: 'auto',
-        }}
+        width={productImageSize}
+        height={productImageSize}
         className="rounded-md shadow-lg"
       />
     </motion.div>

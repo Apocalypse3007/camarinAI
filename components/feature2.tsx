@@ -1,9 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import * as THREE from 'three'; 
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Header from './ui/header';
 
@@ -103,14 +100,13 @@ export default function VirtualTryOn({ onContactClick }: Feature2Props) {
   const [avatarOutfit, setAvatarOutfit] = useState<string>('green'); // Matches 'green' shorts
 
   // State for managing image transitions
+  // State for managing image transitions
   const [prevImage, setPrevImage] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
-
-  // Function to handle image change with transition
   const triggerImageChange = useCallback((newSrc: string) => {
-    if (newSrc === imageSrc) return; // No change needed
+      if (newSrc === imageSrc) return; // No change needed
 
-    setPrevImage(imageSrc); // Set the previous image for fade-out
+      setPrevImage(imageSrc); // Set the previous image for fade-out
     setImageSrc(newSrc); // Update to the new image
     setIsTransitioning(true); // Start transition
 
