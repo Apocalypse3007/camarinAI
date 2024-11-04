@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three'; 
@@ -106,6 +106,21 @@ export default function VirtualTryOn({ onContactClick }: Feature2Props) {
   const [prevImage, setPrevImage] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
+  // Function to handle image change with transition
+  const triggerImageChange = useCallback((newSrc: string) => {
+    if (newSrc === imageSrc) return; // No change needed
+
+    setPrevImage(imageSrc); // Set the previous image for fade-out
+    setImageSrc(newSrc); // Update to the new image
+    setIsTransitioning(true); // Start transition
+
+    // After transition duration, remove the previous image
+    setTimeout(() => {
+      setPrevImage(null);
+      setIsTransitioning(false);
+    }, 500); // Adjust the duration to match your CSS transition
+  }, [imageSrc]);
+
   useEffect(() => {
     // Determine the new image and outfit based on selections
     if (selectedTop === 'red' && selectedBottom === 'black') {
@@ -127,22 +142,7 @@ export default function VirtualTryOn({ onContactClick }: Feature2Props) {
       triggerImageChange('/page3_image1.png'); // Default state
       setAvatarOutfit('default');
     }
-  }, [selectedTop, selectedBottom]);
-
-  // Function to handle image change with transition
-  const triggerImageChange = (newSrc: string) => {
-    if (newSrc === imageSrc) return; // No change needed
-
-    setPrevImage(imageSrc); // Set the previous image for fade-out
-    setImageSrc(newSrc); // Update to the new image
-    setIsTransitioning(true); // Start transition
-
-    // After transition duration, remove the previous image
-    setTimeout(() => {
-      setPrevImage(null);
-      setIsTransitioning(false);
-    }, 500); // Duration should match the CSS transition duration
-  };
+  }, [selectedTop, selectedBottom, triggerImageChange]);
 
   // Derive shortsImage from imageSrc
   const shortsImage = (() => {
