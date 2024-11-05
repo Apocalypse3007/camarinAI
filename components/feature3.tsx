@@ -37,7 +37,7 @@ export default function Component({ onContactClick }: Feature3Props): JSX.Elemen
       angle: 0,
       distance: 350, // Adjusted distance to accommodate larger embeds
       embedSrc:
-        "https://embed.360-javascriptviewer.com?presentation=eyJzcGVlZCI6ODAsImluZXJ0aWEiOjIwLCJzdG9wQXRFZGdlcyI6ZmFsc2UsImRlZmF1bHRQcm9ncmVzc0JhciI6dHJ1ZSwibWFpbkltYWdlVXJsIjoiaHR0cHM6Ly9hcGkuY2FtYXJpbi5haS9wcm9kdWN0cy9kdW1teV9pZDAwMy9mcmFtZV8wMDAuanBnIiwiaW1hZ2VVcmxGb3JtYXQiOiJmcmFtZV94eHguanBnIiwidG90YWxGcmFtZXMiOjEwMCwic3RhcnRGcmFtZU5vIjoxLCJsaWNlbnNlIjoiNHVtenVkbXltbzY9PTIwMjQvMDkvMTctLWNhbWFyaW4uYWkifQ==",
+        "https://embed.360-javascriptviewer.com?presentation=eyJzcGVlZCI6ODAsImluZXJ0aWEiOjIwLCJzdG9wQXRFZGdlcyI6ZmFsc2UsImRlZmF1bHRQcm9ncmVzc0JhciI6dHJ1ZSwibWFpbkltYWdlVXJsIjoiaHR0cHM6Ly9hcGkuY2FtYXJpbi5haS9wcm9kdWN0cy9kdW1teV9pZDAwMy9mcmFtZV8wMDAuanBnIiwiaW1hZ2VVcmxGb3JtYXQiOiJmcmFtZV94eHguanBnIiwidG90YWxGcmFtZXMiOjE4MCwic3RhcnRGcmFtZU5vIjowLCJsaWNlbnNlIjoiNXNreHNia3drbWdnZzU9PTIwMjQvMDkvMjMtLXd3dy5jYW1hcmluLmFpIn0=",
       alt: "Product 1",
     },
     {
